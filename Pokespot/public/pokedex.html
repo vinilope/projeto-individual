@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Inicial</title>
+    <script src="https://kit.fontawesome.com/384071f692.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pokedex.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="assets/img/icon/pokeball_logo.png" alt="">
+                <span>Pokéspot</span>
+            </div>
+            <div class="container-search">
+                <input placeholder="Pesquisar..." type="text">
+                <button class="btn-search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <main>
+        <div id="pokemon_wrap"></div>
+    </main>
+
+    <div style="display: none;" id="footer_wrap">
+        <div id="container_pkmn"><img id="pkmn" class="following-pkmn" src="assets/img/pkmn/pikachu.png"></div>
+        <footer>
+            <div class="container">
+                <div class="logo">
+                    <img src="assets/img/icon/pokeball_logo.png" alt="">
+                    <span>Pokéspot</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
+<script src="script/pkmn_follows.js"></script>
+<script src="script/list_pokedex_pkmn.js"></script>

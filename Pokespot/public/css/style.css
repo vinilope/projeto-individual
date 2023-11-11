@@ -1,0 +1,252 @@
+@font-face {
+    font-family: minecraftia;
+    src: url(../assets/font/Minecraftia-Regular.ttf);
+}
+
+:root {
+    font-family: 'minecraftia', sans-serif;
+    --vermelho: #fa2929;
+    --font-title-size: 25px;
+    --font-body-size: 18px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+}
+
+#pkmn {
+    margin-top: 95px;
+}
+
+#container_pkmn {
+    height: 100px;
+}
+
+header {
+    width: 100%;
+    background-color: var(--vermelho);
+    position: fixed;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+    z-index: 10;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+}
+
+header .container {
+    height: 80px;
+    width: 86%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.container-search {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.container-search input {
+    border: none;
+    border-radius: 15px;
+    height: 30px;
+    text-indent: 10px;
+    font-family: minecraftia;
+}
+
+.btn-search {
+    width: 30px;
+    height: 30px;
+    font-size: 13px;
+    border-radius: 50%;
+    border: none;
+    background-color: white;
+}
+
+.logo {
+    color: white;
+    align-items: flex-end;
+    display: flex;
+    gap: 10px;
+}
+
+.logo img {
+    width: 50px;
+}
+
+.logo span {
+    font-size: 30px;
+    font-weight: 500;
+    height: 40px;
+}
+
+/* FIM HEADER */
+
+/* CORPO */
+
+main {
+    gap: 8rem;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: auto;
+}
+
+main span {
+    font-size: var(--font-body-size);
+}
+
+.pokeball {
+    height: 100vh;
+    width: 100vw-5px;
+    background-color: rgb(194, 1, 1);
+}
+
+.black-strip {
+    width: 100%;
+    background-color: black;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.black-strip a {
+    border-radius: 50%;
+}
+
+.black-strip a .pkb-circle {
+    width: 150px;
+    height: 150px;
+    border: 20px solid black;
+    background-color: white;
+    border-radius: 50%;
+}
+
+.pkb-white {
+    height: 50%;
+    background-color: rgb(255, 255, 255);
+}
+
+h1 {
+    color: rgb(134, 4, 4);
+    font-size: var(--font-title-size);
+    width: 100%;
+}
+
+main .introducao span {
+    width: 600px;
+}
+
+main .introducao {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.introducao img {
+    width: 200px;
+    height: 200px;
+}
+
+.pkmn-gallery ul {
+    margin-top: 30px;
+    list-style: none;
+    display: flex;
+    gap: 35px;
+}
+
+.pkmn-gallery ul li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    transition: 300ms;
+}
+
+.pkmn-gallery ul li:hover {
+    transform: scale(1.07);
+}
+
+.pkmn-gallery ul li img {
+    width: 200px;
+    box-shadow: 
+        -5px 0 0 0 black,
+        5px 0 0 0 black,
+        0 -5px 0 0 black,
+        0 5px 0 0 black;
+}
+
+.pkmn-gallery ul li span {
+    font-weight: 500;
+}
+
+.gallery-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.text-section h1 {
+    text-align: right;
+}
+
+.text-section {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.text-item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.text-section .text {
+    display: flex;
+    text-align: right;
+    align-items: center;
+    width: 600px;
+}
+
+.text img {
+    width: 200px;
+    height: 200px;
+}
+
+/* FIM CORPO */
+
+/* FOOTER */
+
+.following-pkmn {
+    width: 100px;
+    height: 100px;
+}
+
+footer {
+    background-color: var(--vermelho);
+    height: 180px;
+    width: 100%;
+}
+
+footer .container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+footer .logo {
+    display: flex;
+    align-items: flex-end;
+    gap: 5px;
+}
+
+/* FIM FOOTER */

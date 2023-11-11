@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="hp_adversario"></div>
+    <div id="hp_treinador"></div>
+    <button onclick="calcularRodada()">Lutar</button>
+    <input type="text" id="poder_base">
+    <select name="" id="tipo_atq">
+        <option value="fogo">Fogo</option>
+        <option value="agua">Água</option>
+        <option value="grama">Grama</option>
+    </select>
+    <button id="btn_pocao" onclick="curarPocao()">Poção</button>
+    <button id="btn_reviver" onclick="reviverPkmn()">Reviver</button>
+    <div id="tipo"></div>
+</body>
+</html>
+
+<script>
+    var hpTreinador = 120;
+    var hpAdversario = 120;
+    var curaPocao = 20;
+    var qtdPocao = 3;
+    var qtdReviver = 1;
+    var poderBase = 0;
+    var poderBaseInimigo = 40;
+    var tipoAtq;
+    var tipoPkmn = 'agua';
+    var tipoPkmnAdversario = 'fogo';
+
+    var hpTreinadorAtual = hpTreinador;
+    var hpAdversarioAtual = hpAdversario;
+
+    hp_treinador.innerHTML = `Seu Pokémon HP: ${hpTreinador}`
+    hp_adversario.innerHTML = `Adversário HP: ${hpAdversario}`
+    btn_pocao.innerHTML = `Poção (${qtdPocao})`;
+    btn_reviver.innerHTML = `Reviver (${qtdReviver})`;
+    tipo.innerHTML = `Seu: ${tipoPkmn}<br>Adversário: ${tipoPkmnAdversario}`;
+
+    function calcularRodada() {
+        poderBase = Number(poder_base.value);
+        acertarAlvo('advs', poderBase);
+        acertarAlvo('trnd', poderBaseInimigo);
+    }
+
+    function acertarAlvo(alvo, dano) {
+        if (!checarDesmaio(hpTreinadorAtual) && !checarDesmaio(hpAdversarioAtual)) {
+            if(alvo == 'trnd') {
+                hpTreinadorAtual -= poderBaseInimigo;
+            } else if (alvo == 'advs') {
+                hpAdversarioAtual -= calcularDano(dano);
+            }
+        }
+        atualizarDados();
+    }
+
+    function curarPocao() {
+        if (hpTreinadorAtual + curaPocao > hpTreinador && hpTreinadorAtual != hpTreinador) {
+            hpTreinadorAtual = hpTreinador;
+            qtdPocao -= 1;
+            atualizarDados();
+        } else if (qtdPocao > 0 && hpTreinadorAtual != hpTreinador && !checarDesmaio(hpTreinadorAtual)) {
+            hpTreinadorAtual += curaPocao;
+            qtdPocao -= 1;
+            atualizarDados();
+        }
+    }
+
+    function reviverPkmn() {
+        var pkmnTreinadorDesmaiado = checarDesmaio(hpTreinadorAtual);
+        if (pkmnTreinadorDesmaiado) {
+            hpTreinadorAtual = parseInt(hpTreinador/2);
+            qtdReviver -= 1;
+            atualizarDados();
+        }
+    }
+
+    function calcularDano(ataque) {
+        tipoAtq = tipo_atq.value;
+
+        if (tipoAtq == tipoPkmn) {
+            ataque *= 1.5;
+            console.log(ataque)
+        }
+
+        var efetividade = 1;
+
+        if ((tipoAtq == 'agua' && tipoPkmnAdversario == 'fogo') || (tipoAtq == 'fogo' && tipoPkmnAdversario == 'grama') || (tipoAtq == 'grama' && tipoPkmnAdversario == 'agua')) {
+            efetividade = 2;
+        } else {
+            efetividade = 0.5;
+        }
+
+        tipo.innerHTML += '<br>' + efetividade;
+
+        var random = parseInt(Math.random()*10-5);
+        var dano = ataque * efetividade + random ;
+        return dano;
+    }
+
+    function atualizarDados() {
+        var pkmnTreinadorDesmaiado = checarDesmaio(hpTreinadorAtual);
+        var pkmnAdversarioDesmaiado = checarDesmaio(hpAdversarioAtual);
+        
+        if (!pkmnTreinadorDesmaiado && !pkmnAdversarioDesmaiado) {
+            hp_treinador.innerHTML = `Seu Pokémon HP: ${hpTreinadorAtual}`
+            hp_adversario.innerHTML = `Adversário HP: ${hpAdversarioAtual}`
+            btn_pocao.innerHTML = `Poção (${qtdPocao})`;
+            btn_reviver.innerHTML = `Reviver (${qtdReviver})`;
+
+        } else if (pkmnAdversarioDesmaiado) {
+            hp_adversario.innerHTML = `O Pokémon adversário desmaiou.`
+        } else if (pkmnTreinadorDesmaiado) {
+            hp_treinador.innerHTML = `Seu Pokémon desmaiou.`
+        }
+    }
+
+    function checarDesmaio(hp) {
+        if (hp <= 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+</script>
