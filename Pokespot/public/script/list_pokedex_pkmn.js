@@ -2,6 +2,7 @@ var LIMITE_POKEMON = 151;
 
 var allPkmn = [];
 var pkmnHTMLmsg = '';
+main_container.style.display = 'flex';
 
 fetch(`https://pokeapi.co/api/v2/pokemon?limit=${LIMITE_POKEMON}`)
     .then((res) => res.json())

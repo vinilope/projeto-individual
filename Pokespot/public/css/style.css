@@ -4,31 +4,23 @@
 }
 
 :root {
-    font-family: 'minecraftia', sans-serif;
-    --vermelho: #fa2929;
+    --vermelho: #c20101;
     --font-title-size: 25px;
-    --font-body-size: 18px;
+    --font-body-size: 15px;
 }
 
 * {
+    font-family: 'minecraftia', sans-serif;
     margin: 0;
     padding: 0;
     scroll-behavior: smooth;
-}
-
-#pkmn {
-    margin-top: 95px;
-}
-
-#container_pkmn {
-    height: 100px;
 }
 
 header {
     width: 100%;
     background-color: var(--vermelho);
     position: fixed;
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .2);
     z-index: 10;
 }
 
@@ -77,13 +69,60 @@ header .container {
 }
 
 .logo img {
-    width: 50px;
+    width: 230px;
+    image-rendering: pixelated;
 }
 
 .logo span {
     font-size: 30px;
     font-weight: 500;
     height: 40px;
+}
+
+.btn {
+    border: none;
+    border-radius: 0px;
+    padding: 10px;
+    font-family: minecraftia;
+    height: 40px;
+    transition: 100ms;
+    cursor: pointer;
+    width: 150px;
+}
+
+.btn span {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.container-cadastro-btn {
+    display: flex;
+    gap: 10px;
+}
+
+.btn:hover {
+    color: white;
+    background-color: black;
+    animation: tiltBtn 300ms;
+}
+
+@keyframes tiltBtn {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    33% {
+        transform: rotate(5deg);
+    }
+
+    66% {
+        transform: rotate(-5deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
 }
 
 /* FIM HEADER */
@@ -98,35 +137,72 @@ main {
     margin: auto;
 }
 
+main,
+footer,
+#container_pkmn {
+    display: none;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s linear;
+}
+
 main span {
     font-size: var(--font-body-size);
 }
 
-.pokeball {
+.section-pkb {
+    width: 100vw;
     height: 100vh;
-    width: 100vw-5px;
-    background-color: rgb(194, 1, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
 }
+
+.container-pkb {
+    height: 500vw;
+    width: 500vh;
+    background-color: rgb(194, 1, 1);
+    transform: rotate(180deg);
+    transition: 900ms;
+    overflow: hidden;
+}
+
+/* .container-pkb:hover {
+} */
+/* .container-pkb {
+    height: 500vw;
+    width: 500vh;
+    background-color: rgb(194, 1, 1);
+    transform: rotate(180deg);
+    transition: 600ms;
+    overflow: hidden;
+}
+
+.container-pkb:hover {
+    transform: rotate(90deg);
+} */
 
 .black-strip {
     width: 100%;
     background-color: black;
-    height: 40px;
+    height: 1.4vw;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.black-strip a {
+.black-strip .pkb-btn {
     border-radius: 50%;
+    background-color: rgba(0, 0, 255, 0);
+    border: none;
+    cursor: pointer;
 }
 
-.black-strip a .pkb-circle {
-    width: 150px;
-    height: 150px;
-    border: 20px solid black;
-    background-color: white;
-    border-radius: 50%;
+.black-strip .pkb-btn .pkb-circle {
+    width: 10vw;
+    height: 10vw;
+    background-image: url('../assets/img/border/center.png');
+    background-size: contain;
 }
 
 .pkb-white {
@@ -134,7 +210,7 @@ main span {
     background-color: rgb(255, 255, 255);
 }
 
-h1 {
+.titulo h1 {
     color: rgb(134, 4, 4);
     font-size: var(--font-title-size);
     width: 100%;
@@ -176,11 +252,11 @@ main .introducao {
 
 .pkmn-gallery ul li img {
     width: 200px;
-    box-shadow: 
+    /* box-shadow:
         -5px 0 0 0 black,
         5px 0 0 0 black,
         0 -5px 0 0 black,
-        0 5px 0 0 black;
+        0 5px 0 0 black; */
 }
 
 .pkmn-gallery ul li span {
@@ -226,7 +302,14 @@ main .introducao {
 /* FOOTER */
 
 .following-pkmn {
+    margin-top: -5px;
+    image-rendering: pixelated;
     width: 100px;
+    height: 75px;
+    transform: scale(1, -1);
+}
+
+#container_pkmn {
     height: 100px;
 }
 
@@ -234,6 +317,8 @@ footer {
     background-color: var(--vermelho);
     height: 180px;
     width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 footer .container {
@@ -250,3 +335,130 @@ footer .logo {
 }
 
 /* FIM FOOTER */
+
+/* PIXELATED BORDER */
+.px-corner {
+    clip-path: polygon(0px calc(100% - 10px),
+            5px calc(100% - 10px),
+            5px calc(100% - 5px),
+            10px calc(100% - 5px),
+            10px 100%,
+            calc(100% - 10px) 100%,
+            calc(100% - 10px) calc(100% - 5px),
+            calc(100% - 5px) calc(100% - 5px),
+            calc(100% - 5px) calc(100% - 10px),
+            100% calc(100% - 10px),
+            100% 10px,
+            calc(100% - 5px) 10px,
+            calc(100% - 5px) 5px,
+            calc(100% - 10px) 5px,
+            calc(100% - 10px) 0px,
+            10px 0px,
+            10px 5px,
+            5px 5px,
+            5px 10px,
+            0px 10px);
+}
+
+.px-border,
+.px-border--wrapper {
+    clip-path: polygon(0px calc(100% - 10px),
+            5px calc(100% - 10px),
+            5px calc(100% - 5px),
+            10px calc(100% - 5px),
+            10px 100%,
+            calc(100% - 10px) 100%,
+            calc(100% - 10px) calc(100% - 5px),
+            calc(100% - 5px) calc(100% - 5px),
+            calc(100% - 5px) calc(100% - 10px),
+            100% calc(100% - 10px),
+            100% 10px,
+            calc(100% - 5px) 10px,
+            calc(100% - 5px) 5px,
+            calc(100% - 10px) 5px,
+            calc(100% - 10px) 0px,
+            10px 0px,
+            10px 5px,
+            5px 5px,
+            5px 10px,
+            0px 10px);
+    position: relative;
+}
+
+.px-border {
+    border: 5px solid transparent;
+}
+
+.px-border--wrapper {
+    width: fit-content;
+    height: fit-content;
+}
+
+.px-border--wrapper .px-border {
+    display: block;
+    clip-path: polygon(5px 10px,
+            10px 10px,
+            10px 5px,
+            calc(100% - 10px) 5px,
+            calc(100% - 10px) 10px,
+            calc(100% - 5px) 10px,
+            calc(100% - 5px) calc(100% - 10px),
+            calc(100% - 10px) calc(100% - 10px),
+            calc(100% - 10px) calc(100% - 5px),
+            10px calc(100% - 5px),
+            10px calc(100% - 10px),
+            5px calc(100% - 10px));
+}
+
+.px-border::after,
+.px-border--wrapper::after {
+    content: "";
+    position: absolute;
+    clip-path: polygon(0px calc(100% - 10px),
+            5px calc(100% - 10px),
+            5px calc(100% - 5px),
+            10px calc(100% - 5px),
+            10px 100%,
+            calc(100% - 10px) 100%,
+            calc(100% - 10px) calc(100% - 5px),
+            calc(100% - 5px) calc(100% - 5px),
+            calc(100% - 5px) calc(100% - 10px),
+            100% calc(100% - 10px),
+            100% 10px,
+            calc(100% - 5px) 10px,
+            calc(100% - 5px) 5px,
+            calc(100% - 10px) 5px,
+            calc(100% - 10px) 0px,
+            10px 0px,
+            10px 5px,
+            5px 5px,
+            5px 10px,
+            0px 10px,
+            0px 50%,
+            5px 50%,
+            5px 10px,
+            10px 10px,
+            10px 5px,
+            calc(100% - 10px) 5px,
+            calc(100% - 10px) 10px,
+            calc(100% - 5px) 10px,
+            calc(100% - 5px) calc(100% - 10px),
+            calc(100% - 10px) calc(100% - 10px),
+            calc(100% - 10px) calc(100% - 5px),
+            10px calc(100% - 5px),
+            10px calc(100% - 10px),
+            5px calc(100% - 10px),
+            5px 50%,
+            0px 50%);
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #241f31;
+    display: block;
+    pointer-events: none;
+}
+
+.px-border::after {
+    margin: -5px;
+}

@@ -1,0 +1,62 @@
+body {
+    background-image: url(../assets/img/icon/bg2_scaled_32x_pngcrushed.png);
+    background-size: 120px;
+    background-repeat: repeat;
+}
+
+main,
+footer,
+#container_pkmn {
+    display: flex;
+    opacity: 1;
+}
+
+main {
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.signin-card {
+    width: 50%;
+    height: 70%;
+    background-position: center;
+    background-image: url(../assets/img/border/fundo.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 80px;
+}
+
+.signin-card .inp {
+    height: 42px;
+    text-indent: 10px;
+    width: 45%;
+    border: none;
+}
+
+.signin-card .btn {
+    position: relative;
+    top: 15px;
+}
+
+.inp-date {
+    background-color: white;
+    color: #767676;
+}
+
+.signin-card h1 {
+    color: white;
+    position: relative;
+    bottom: 40px;
+}
+
+.card-erro {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}

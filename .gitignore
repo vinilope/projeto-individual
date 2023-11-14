@@ -1,0 +1,7 @@
+node_modules
+package-lock.json
+
+Pokespot/node_modules
+Pokespot/package-lock.json
+
+.github

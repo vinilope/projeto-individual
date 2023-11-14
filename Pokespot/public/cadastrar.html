@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width='device-width', initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/cadastro.css">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="assets/img/icon/logo_pkspt.png" alt="">
+            </div>
+            <div class="container-cadastro-btn">
+                <button class="btn btn-conectar px-corner" onclick="conectar()"><span>Conectar</span></button>
+                <button class="btn btn-cadastrar px-corner"><span>Criar Conta</span></button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="card signin-card">
+            <h1>Cadastre-se!</h1>
+            <input id="input_apelido" class="inp inp-signin px-corner" placeholder="Apelido:">
+            <input id="input_email" class="inp inp-signin px-corner" placeholder="Email:">
+            <input id="input_senha" class="inp inp-signin px-corner" placeholder="Senha:">
+            <input id="input_conf_senha" class="inp inp-signin px-corner" placeholder="Confirmar Senha:">
+            <input id="input_dt" class="inp inp-date px-corner" type="date"><br>
+            <button class="btn px-corner" onclick="cadastrar()">Criar Conta</button>
+
+        </div>
+        <div class="alerta-erro">
+            <div class="card-erro" id="cardErro">
+              <span id="mensagem_erro"></span>
+            </div>
+          </div>
+    </main>
+</body>
+
+</html>
+
+<script>
+    var apelido, email, senha, confSenha, dtNasc = '';
+
+    function cadastrar() {
+        apelido = input_apelido.value;
+        email = input_email.value;
+        senha = input_senha.value;
+        confSenha = input_conf_senha.value;
+        dtNasc = input_dt.value;
+
+        if (validarCampos()) {
+            console.log('Entrada inválida')
+            return false;
+        }
+
+        fetch("/usuarios/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                apelidoServer: apelido,
+                emailServer: email,
+                senhaServer: senha,
+                dtServer: dtNasc
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    cardErro.style.display = "block";
+
+                    mensagem_erro.innerHTML =
+                        "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+
+                    setTimeout(() => {
+                        window.location = "login.html";
+                    }, "2000");
+                } else {
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+        return false;
+    }
+    
+    function validarCampos() {
+        return
+        (
+            apelido == "" ||
+            email == "" ||
+            senha == "" ||
+            confSenha != senha ||
+            dtNasc == ""
+        );
+    }
+</script>

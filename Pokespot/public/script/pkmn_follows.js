@@ -1,4 +1,4 @@
-container_pkmn.innerHTML = '<img id="pkmn" class="following-pkmn" src="assets/img/pkmn/pikachu.png">'
+container_pkmn.innerHTML = '<img id="pkmn" class="following-pkmn" src="https://img.pokemondb.net/sprites/sword-shield/icon/charmander.png">'
 
 pkmn.style.marginLeft = 100 + "px";
 var mouseX0 = parseInt(pkmn.style.marginLeft, 10);

@@ -4,35 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Inicial</title>
+    <link rel="icon" href="assets/img/icon/pokespot_icon.png">
     <script src="https://kit.fontawesome.com/384071f692.js" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header>
         <div class="container">
             <div class="logo">
-                <img src="assets/img/icon/pokeball_logo.png" alt="">
-                <span>Pokéspot</span>
+                <img src="assets/img/icon/logo_pkspt.png" alt="">
             </div>
-            <div class="container-search">
-                <input placeholder="Pesquisar..." type="text">
-                <button class="btn-search">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </button>
+            <div class="container-cadastro-btn">
+                <button class="btn btn-conectar px-corner" onclick="conectar()"><span>Conectar</span></button>
+                <button class="btn btn-cadastrar px-corner" onclick="cadastrar()"><span>Criar Conta</span></button>
             </div>
         </div>
     </header>
 
-    <section class="pokeball">
-        <div class="pkb-white"></div>
-        <div class="black-strip">
-            <a href="#inicio">
-                <div class="pkb-circle"></div>
-            </a>
+    <section id="section_pkb" class="section-pkb">
+        <div id="div_pkb" class="container-pkb">
+            <div class="pkb-white"></div>
+            <div class="black-strip">
+                <button class="pkb-btn" onclick="girarPokebola()">
+                    <div class="pkb-circle"></div>
+                </button>
+            </div>
         </div>
     </section>
 
-    <main>
+    <main id="main_container">
         <div id="inicio"></div>
         <section>
             <div class="titulo">
@@ -49,25 +49,25 @@
             <div class="titulo">
                 <h1>Melhores Pokémon!</h1>
             </div>
-            <div class="pkmn-gallery">
+            <div class="pkmn-gallery ">
                 <ul>
-                    <li>
+                    <li class="px-border">
                         <img src="assets/img/pkmn/mudkip.png" alt="">
                         <span>Mudkip</span>
                     </li>
-                    <li>
+                    <li class="px-border">
                         <img src="assets/img/pkmn/mudkip.png" alt="">
                         <span>Mudkip</span>
                     </li>
-                    <li>
+                    <li class="px-border">
                         <img src="assets/img/pkmn/mudkip.png" alt="">
                         <span>Mudkip</span>
                     </li>
-                    <li>
+                    <li class="px-border">
                         <img src="assets/img/pkmn/mudkip.png" alt="">
                         <span>Mudkip</span>
                     </li>
-                    <li>
+                    <li class="px-border">
                         <img src="assets/img/pkmn/mudkip.png" alt="">
                         <span>Mudkip</span>
                     </li>
@@ -88,15 +88,39 @@
         </section>
     </main>
     
-    <div id="container_pkmn"><img id="pkmn" class="following-pkmn" src="assets/img/pkmn/pikachu.png"></div>
-    <footer>
+    <footer id="footer_container">
+        <div id="container_pkmn"><img id="pkmn" class="following-pkmn" src="https://img.pokemondb.net/sprites/sword-shield/icon/charmander.png"></div>
         <div class="container">
             <div class="logo">
-                <img src="assets/img/icon/pokeball_logo.png" alt="">
-                <span>Pokéspot</span>
+                <img src="assets/img/icon/logo_pkspt.png" alt="">
             </div>
         </div>
     </footer>
 </body>
 </html>
 <script src="script/pkmn_follows.js"></script>
+
+<script>
+    function girarPokebola() {
+        div_pkb.style.transform = 'rotate(90deg)';
+        setTimeout(() => {
+            div_pkb.style.marginLeft = '-109%';
+            main_container.style.display = 'flex';
+            footer_container.style.display = 'flex';
+            container_pkmn.style.display = 'flex';
+            setTimeout(() => {
+                main_container.style.visibility = 'visible';
+                main_container.style.opacity = '1';
+                footer_container.style.visibility = 'visible';
+                footer_container.style.opacity = '1';
+                container_pkmn.style.visibility = 'visible';
+                container_pkmn.style.opacity = '1';
+                section_pkb.style.display = 'none';
+            }, 500);
+        }, 1000);
+    }
+
+    function cadastrar() {
+        location.href = "cadastrar.html";
+    }
+</script>
