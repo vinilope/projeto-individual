@@ -1,7 +1,8 @@
 body {
-    background-image: url(../assets/img/icon/bg2_scaled_32x_pngcrushed.png);
+    background-image: url(../assets/img/icon/background-pkb.png);
     background-size: 120px;
     background-repeat: repeat;
+    image-rendering: pixelated;
 }
 
 main,
@@ -21,7 +22,7 @@ main {
     width: 50%;
     height: 70%;
     background-position: center;
-    background-image: url(../assets/img/border/fundo.png);
+    background-image: url(../assets/img/border/bg-card.png  );
     background-size: contain;
     background-repeat: no-repeat;
     display: flex;
@@ -29,7 +30,8 @@ main {
     align-items: center;
     flex-direction: column;
     gap: 15px;
-    margin-top: 80px;
+    margin-top: 140px;
+    image-rendering: pixelated;
 }
 
 .signin-card .inp {
@@ -57,6 +59,31 @@ main {
 
 .card-erro {
     position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
     right: 0;
-    bottom: 0;
+    width: 43%;
+    height: 25px;
+    bottom: 50px;
+    padding: 10px;
+    background-color: white;
+    transition: 600ms;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.loading-pkb {
+    width: 1.5vw;
+    height: 1.5vw;
+}
+
+.down-arrow {
+    width: 1vw;
+}
+
+#mensagem_erro {
+    font-size: 0.9vw;
 }
