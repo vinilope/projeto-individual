@@ -137,9 +137,7 @@ main {
     margin: auto;
 }
 
-main,
-footer,
-#container_pkmn {
+.display-none-on-start {
     display: none;
     opacity: 0;
     transition: visibility 0s, opacity 0.5s linear;

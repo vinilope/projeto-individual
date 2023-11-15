@@ -5,13 +5,6 @@ body {
     image-rendering: pixelated;
 }
 
-main,
-footer,
-#container_pkmn {
-    display: flex;
-    opacity: 1;
-}
-
 main {
     align-items: center;
     justify-content: center;
