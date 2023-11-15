@@ -1,11 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <meta name="viewport" content="width='device-width', initial-scale=1.0">
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/cadastro.css">
 </head>
+
 <body>
-    
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="assets/img/icon/logo_pkspt.png" alt="">
+            </div>
+            <div class="container-cadastro-btn">
+                <button class="btn btn-conectar px-corner" onclick="conectar()"><span>Conectar</span></button>
+                <button class="btn btn-cadastrar px-corner"><span>Criar Conta</span></button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="card signin-card">
+            <h1>Faça login!</h1>
+            <input id="input_email" class="inp inp-signin px-corner" placeholder="E-mail:">
+            <input id="input_senha" class="inp inp-signin px-corner" placeholder="Senha:">
+            <button class="btn px-corner" onclick="entrar()">Criar Conta</button>
+        </div>
+        <div class="alerta-erro">
+            <div style="display: none;" class="card-erro px-border" id="cardErro">
+            </div>
+        </div>
+    </main>
 </body>
+
 </html>
+
+
+<script>
+    function entrar() {
+        var email = input_email.value;
+        var senha = input_senha.value;
+
+        if (email == "" || senha == "") {
+            console.log('Entrada inválida')
+            return false;
+        }
+
+        console.log("FORM LOGIN: ", email);
+        console.log("FORM SENHA: ", senha);
+
+        fetch("/usuarios/autenticar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                emailServer: email,
+                senhaServer: senha
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                console.log('oi')
+
+                cardErro.style.display = 'flex';
+                cardErro.innerHTML =
+                        `<img class="down-arrow" src='assets/img/icon/down-arrow.png'>
+                        <span id="mensagem_erro">Login realizado com sucesso! Redirecionando para sua página...</span>
+                        <img class="loading-pkb" src='assets/img/icon/loading.gif'>`;
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+                    sessionStorage.EMAIL_USUARIO = json.email;
+                    sessionStorage.NOME_USUARIO = json.nome;
+                    sessionStorage.ID_USUARIO = json.id;
+
+                    setTimeout(function () {
+                        window.location = "./usuario.html";
+                    }, 1000); // apenas para exibir o loading
+
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar realizar o login!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
+</script>
