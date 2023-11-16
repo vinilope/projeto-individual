@@ -14,7 +14,7 @@ document.addEventListener("mousemove", function (event) {
 });
 
 setInterval(function () {
-    pkmn.style.marginLeft = (mouseX0 - velocidade * 100) - offSetImagem + "px";
+    pkmn.style.marginLeft = ((mouseX0 - velocidade * 100) - offSetImagem) - 250 + "px";
 
     velocidade *= 0.97;
 

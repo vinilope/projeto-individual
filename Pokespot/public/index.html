@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,9 @@
     <link rel="icon" href="assets/img/icon/pokespot_icon.png">
     <script src="https://kit.fontawesome.com/384071f692.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pokedex.css">
 </head>
+
 <body>
     <header>
         <div class="container">
@@ -20,6 +23,14 @@
             </div>
         </div>
     </header>
+
+    <div id="mySidenav" class="sidenav display-none-on-start">
+        <ul>
+            <li><a href="index.html">Início</a></li>
+            <li><a href="pokedex.html">Pokedéx</a></li>
+        </ul>
+    </div>
+
 
     <section id="section_pkb" class="section-pkb">
         <div id="div_pkb" class="container-pkb">
@@ -35,13 +46,19 @@
     <main class="display-none-on-start" id="main_container">
         <div id="inicio"></div>
         <section>
-            <div class="titulo">
-                <h1>Bem-vindo ao Mundo Pokémon!</h1>
-            </div>
-            <div class="introducao">
-                <span>Desde 1996, esta franquia tem encantado fãs com suas criaturas mágicas e aventuras emocionantes. Neste site, exploraremos os jogos, desenhos animados, filmes e o impacto cultural dos Pokémon, celebrando a diversidade e amizade que definem esse universo. Seja você um treinador experiente ou novato, sempre há algo novo para descobrir nesse emocionante mundo!</span>
-    
-                <img src="assets/img/prof/oak-prof.png" alt="">
+            <div class="content-wrap px-border">
+                <div class="titulo">
+                    <h1>Bem-vindo ao Mundo Pokémon!</h1>
+                </div>
+                <div class="introducao">
+                    <span>Desde 1996, esta franquia tem encantado fãs com suas criaturas mágicas e aventuras
+                        emocionantes. Neste site, exploraremos os jogos, desenhos animados, filmes e o impacto cultural
+                        dos Pokémon, celebrando a diversidade e amizade que definem esse universo. Seja você um
+                        treinador experiente ou novato, sempre há algo novo para descobrir nesse emocionante
+                        mundo!</span>
+
+                    <img src="assets/img/prof/oak-prof.png" alt="">
+                </div>
             </div>
         </section>
 
@@ -51,45 +68,67 @@
             </div>
             <div class="pkmn-gallery ">
                 <ul>
-                    <li class="px-border">
-                        <img src="assets/img/pkmn/mudkip.png" alt="">
-                        <span>Mudkip</span>
+                    <li>
+                        <div class="pokemon-card">
+                            <span class="titulo-id">1</span>
+                            <span class="titulo-nome">Mudkip</span>
+                            <img src="assets/img/pkmn/mudkip.png" alt="">
+                        </div>
                     </li>
-                    <li class="px-border">
-                        <img src="assets/img/pkmn/mudkip.png" alt="">
-                        <span>Mudkip</span>
+                    <li>
+                        <div class="pokemon-card">
+                            <span class="titulo-id">1</span>
+                            <span class="titulo-nome">Mudkip</span>
+                            <img src="assets/img/pkmn/mudkip.png" alt="">
+                        </div>
                     </li>
-                    <li class="px-border">
-                        <img src="assets/img/pkmn/mudkip.png" alt="">
-                        <span>Mudkip</span>
+                    <li>
+                        <div class="pokemon-card">
+                            <span class="titulo-id">1</span>
+                            <span class="titulo-nome">Mudkip</span>
+                            <img src="assets/img/pkmn/mudkip.png" alt="">
+                        </div>
                     </li>
-                    <li class="px-border">
-                        <img src="assets/img/pkmn/mudkip.png" alt="">
-                        <span>Mudkip</span>
+                    <li>
+                        <div class="pokemon-card">
+                            <span class="titulo-id">1</span>
+                            <span class="titulo-nome">Mudkip</span>
+                            <img src="assets/img/pkmn/mudkip.png" alt="">
+                        </div>
                     </li>
-                    <li class="px-border">
-                        <img src="assets/img/pkmn/mudkip.png" alt="">
-                        <span>Mudkip</span>
+                    <li>
+                        <div class="pokemon-card">
+                            <span class="titulo-id">1</span>
+                            <span class="titulo-nome">Mudkip</span>
+                            <img src="assets/img/pkmn/mudkip.png" alt="">
+                        </div>
                     </li>
                 </ul>
             </div>
         </section>
-        
+
         <section class="text-section">
-            <div class="text">
-                <img src="assets/img/prof/juniper-prof.png" alt="">
-                <di class="text-item">
-                    <div class="titulo">
-                        <h1>Lorem ipsum dolor!</h1>
-                    </div>
-                    <span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia perspiciatis obcaecati possimus dolor sequi recusandae quam libero eligendi expedita illum sapiente, eos aliquid. Quos expedita voluptatibus molestiae, deleniti cum accusantium?</span>
+            <div class="content-wrap px-border">
+                <div class="text">
+                    <img src="assets/img/prof/juniper-prof.png" alt="">
+                    <div class="text-item">
+                        <div class="titulo">
+                            <h1>Lorem ipsum dolor!</h1>
+                        </div>
+                        <span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia perspiciatis obcaecati
+                            possimus
+                            dolor sequi recusandae quam libero eligendi expedita illum sapiente, eos aliquid. Quos
+                            expedita
+                            voluptatibus molestiae, deleniti cum accusantium?</span>
                 </div>
+            </div>
             </div>
         </section>
     </main>
-    
+
     <footer class="display-none-on-start" id="footer_container">
-        <div class="display-none-on-start" id="container_pkmn"><img id="pkmn" class="following-pkmn" src="https://img.pokemondb.net/sprites/sword-shield/icon/charmander.png"></div>
+        <div class="display-none-on-start" id="container_pkmn"><img id="pkmn" class="following-pkmn"
+                src="https://img.pokemondb.net/sprites/sword-shield/icon/charmander.png"></div>
         <div class="container">
             <div class="logo">
                 <img src="assets/img/icon/logo_pkspt.png" alt="">
@@ -97,6 +136,7 @@
         </div>
     </footer>
 </body>
+
 </html>
 <script src="script/pkmn_follows.js"></script>
 
@@ -108,6 +148,7 @@
             main_container.style.display = 'flex';
             footer_container.style.display = 'flex';
             container_pkmn.style.display = 'flex';
+            mySidenav.style.display = 'block';
             setTimeout(() => {
                 main_container.style.visibility = 'visible';
                 main_container.style.opacity = '1';
@@ -115,12 +156,18 @@
                 footer_container.style.opacity = '1';
                 container_pkmn.style.visibility = 'visible';
                 container_pkmn.style.opacity = '1';
+                mySidenav.style.visibility = 'visible';
+                mySidenav.style.opacity = '1';
                 section_pkb.style.display = 'none';
             }, 500);
         }, 1000);
     }
 
     function cadastrar() {
-        location.href = "cadastrar.html";
+        location.href = "./cadastrar.html";
+    }
+
+    function conectar() {
+        location.href = "./login.html"
     }
 </script>

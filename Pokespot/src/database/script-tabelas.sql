@@ -3,21 +3,13 @@ use pokespot;
 
 create table usuario (
 	idUsuario int primary key auto_increment,
-	apelido varchar(60) not null,
-	constraint chkApelidoUsuario check (length(apelido) >= 3),
+	nome varchar(60) not null,
+	constraint chkNomeUsuario check (length(nome) >= 3),
 	email varchar(80) not null,
 	senha varchar(60) not null,
 	dtNasc date not null,
 	sexo char(1),
 	constraint chkSexoUsuario check (sexo in('f', 'm', null))
-);
-
-create table treinador (
-	idTreinador int primary key,
-	constraint fkTreinadorUsuario foreign key (idTreinador)
-		references usuario(idUsuario),
-	qtdPokemon int,
-	diasConsecutivos int
 );
 
 create table pokemon (
@@ -31,13 +23,15 @@ create table pokemon (
 );
 
 create table pokemonTreinador (
-	fkTreinador int,
+	fkUsuario int,
 	fkPokemon int,
-	primary key (fkTreinador, fkPokemon),
-	constraint fkTreinadorPkmnTreinador foreign key (fkTreinador)
-		references treinador(idTreinador),
+	primary key (fkUsuario, fkPokemon),
+	constraint fkUsuarioPkmnTreinador foreign key (fkUsuario)
+		references usuario(idUsuario),
 	constraint fkPokemonPkmnTreinador foreign key (fkPokemon)
-		references pokemon(idPokemon)
+		references pokemon(idPokemon),
+	apelido varchar(255),
+	dtAdquirido datetime default current_timestamp
 );
 
 create table baseStatus (

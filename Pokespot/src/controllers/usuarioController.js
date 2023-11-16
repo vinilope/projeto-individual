@@ -1,4 +1,5 @@
 var usuarioModel = require("../models/usuarioModel");
+var pokemonModel = require("../models/pokemonModel");
 
 function autenticar(req, res) {
     var email = req.body.emailServer;
@@ -21,8 +22,8 @@ function autenticar(req, res) {
 
                         res.json({
                             id: resultadoAutenticar[0].idUsuario,
+                            nome: resultadoAutenticar[0].nome,
                             email: resultadoAutenticar[0].email,
-                            nome: resultadoAutenticar[0].apelido,
                             senha: resultadoAutenticar[0].senha
                         });
 

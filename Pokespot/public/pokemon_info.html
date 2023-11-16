@@ -4,11 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokédex</title>
+    <title></title>
     <script src="https://kit.fontawesome.com/384071f692.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/pokedex.css">
     <link rel="stylesheet" href="css/pesquisa.css">
+    <link rel="stylesheet" href="css/usuario.css">
 </head>
 
 <body>
@@ -18,24 +19,12 @@
                 <img src="assets/img/icon/logo_pkspt.png" alt="">
             </div>
             <div class="container-search">
-                <input class="px-border" onkeyup="getPokemonData(pkmn_pesquisado.value)" id="pkmn_pesquisado" placeholder="Pesquisar..." type="text">
+                <input class="px-border" onkeyup="getPokemonData(pkmn_pesquisado.value)" id="pkmn_pesquisado"
+                    placeholder="Pesquisar..." type="text">
                 <img src="assets/img/icon/lupa.png" alt="" class="lupa">
             </div>
         </div>
     </header>
 
-    <div id="mySidenav" class="sidenav">
-        <ul>
-            <li><a href="index.html">Início</a></li>
-            <li><a href="pokedex.html">Pokedéx</a></li>
-        </ul>
-    </div>
-
-    <main id="main_container">
-        <div id="pokemon_wrap"></div>
-    </main>
 </body>
-
 </html>
-
-<script src="script/list_pokedex_pkmn.js"></script>

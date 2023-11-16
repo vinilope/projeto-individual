@@ -1,14 +1,19 @@
+document.title = sessionStorage.NOME_USUARIO + ' - Pokéspot';
+var idUsuario = sessionStorage.ID_USUARIO;
+
 var url = 'https://img.pokemondb.net/sprites/';
+var allPkmn;
 getPokemonData('');
 
 function getPokemonData(pkmnPesquisado) {
-    fetch("/pokemon/getPokemonData", {
+    fetch("/pokemon/getTrainerPokemon", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            pkmnEspecie: pkmnPesquisado
+            pkmnEspecie: pkmnPesquisado,
+            id: idUsuario
         })
     })
         .then(function (resposta) {
@@ -17,7 +22,8 @@ function getPokemonData(pkmnPesquisado) {
 
                 resposta.json().then(json => {
                     if (json.tamanho > 0) {
-                        drawPokemon(json.pokemon)
+                        allPkmn = json.pokemon;
+                        drawPokemon(allPkmn)
                     } else {
                         console.log(json.tamanho)
                         notFound();
@@ -34,18 +40,20 @@ function getPokemonData(pkmnPesquisado) {
 
 function drawPokemon(pokemon) {
     var pkmnHTMLmsg = '';
-    var id;
+    // var id;
 
     for (let pkmnAtual = 0; pkmnAtual < pokemon.length; pkmnAtual++) {
-        id = pkmnAtual + 1;
+        // id = pkmnAtual + 1;
+        pkmn = pokemon[pkmnAtual]
 
         pkmnHTMLmsg += `
-        <div class="pokemon-card">
-            <span class="titulo-id">${pokemon[pkmnAtual].idPokemon}</span>
-            <span class="titulo-nome">${capitalizeFirstLetter(pokemon[pkmnAtual].especie)}</span>
-            <img src="${url + pokemon[pkmnAtual].normal}" alt="">
-            <span class="tipo-pokemon">${getTypePokemon(pokemon[pkmnAtual])}</span>   
-            </div>`;
+                <div onclick="showPokemonInfo('${pkmn.id}')" class="pokemon-card">
+                <span class="titulo-id">${pkmn.idPokemon}</span>
+                    <span class="titulo-nome">${pkmn.apelido}</span>
+                    <img class="pkmn-img" src="${url + pkmn.normal}" alt="">
+                    <span class="titulo-nome">${capitalizeFirstLetter(pkmn.especie)}</span>
+                    </div>`;
+        // <img onclick="renomear(${pkmn.fkPokemon}, ${pkmn.fkUsuario}, 'dsdg')" class="icon rename" src="assets/img/icon/rename.png">
     }
     pokemon_wrap.innerHTML = pkmnHTMLmsg;
 }
@@ -65,10 +73,46 @@ function capitalizeFirstLetter(string) {
 }
 
 function notFound() {
-    pokemon_wrap.innerHTML = `<div class="not-found px-border">
+    pokemon_wrap.innerText = `<div class="not-found px-border">
             <img src="assets/img/icon/down-arrow.png">
             <span>Pokémon não encontrado!</span>
         <div>`;
+}
+
+function renomear(id) {
+    apelido = apelido_h2.innerHTML.replaceAll('<br>', ' ');
+    
+    console.log(id, apelido)
+    fetch("/pokemon/renomear", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            id: id,
+            apelido: apelido
+        })
+    })
+        .then(function (resposta) {
+            if (resposta.ok) {
+                console.log(resposta)
+                getPokemonData(pkmn_pesquisado.value);
+                location.reload()
+                // resposta.json().then(json => {
+                //     if (json.tamanho > 0) {
+                //         drawPokemon(json.pokemon)
+                //     } else {
+                //         console.log(json.tamanho)
+                //         notFound();
+                //     }
+                // })
+            } else {
+                throw "Houve um erro ao tentar buscar os pokémons!";
+            }
+        })
+        .catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
 }
 
 function getTypeColor(type) {

@@ -3,6 +3,13 @@
     src: url(../assets/font/Minecraftia-Regular.ttf);
 }
 
+body {
+    background-image: url(../assets/img/icon/background-pkb.png);
+    background-size: 120px;
+    background-repeat: repeat;
+    image-rendering: pixelated;
+}
+
 :root {
     --vermelho: #c20101;
     --font-title-size: 25px;
@@ -36,29 +43,6 @@ header .container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-}
-
-.container-search {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.container-search input {
-    border: none;
-    border-radius: 15px;
-    height: 30px;
-    text-indent: 10px;
-    font-family: minecraftia;
-}
-
-.btn-search {
-    width: 30px;
-    height: 30px;
-    font-size: 13px;
-    border-radius: 50%;
-    border: none;
-    background-color: white;
 }
 
 .logo {
@@ -127,6 +111,36 @@ header .container {
 
 /* FIM HEADER */
 
+/* BARRA LATERAL */
+
+.sidenav {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    z-index: 1;
+    top: 80px;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 60px;
+    transition: 0.5s;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+/* FIM BARRA LATERAL */
+
 /* CORPO */
 
 main {
@@ -135,6 +149,11 @@ main {
     flex-direction: column;
     width: 80%;
     margin: auto;
+    margin-left: 300px;
+}
+
+footer {
+    margin-left: 250px;
 }
 
 .display-none-on-start {
@@ -165,21 +184,6 @@ main span {
     overflow: hidden;
 }
 
-/* .container-pkb:hover {
-} */
-/* .container-pkb {
-    height: 500vw;
-    width: 500vh;
-    background-color: rgb(194, 1, 1);
-    transform: rotate(180deg);
-    transition: 600ms;
-    overflow: hidden;
-}
-
-.container-pkb:hover {
-    transform: rotate(90deg);
-} */
-
 .black-strip {
     width: 100%;
     background-color: black;
@@ -208,6 +212,12 @@ main span {
     background-color: rgb(255, 255, 255);
 }
 
+.content-wrap {
+    width: 50%;
+    padding: 20px;
+    background-color: white;
+}
+
 .titulo h1 {
     color: rgb(134, 4, 4);
     font-size: var(--font-title-size);
@@ -234,6 +244,7 @@ main .introducao {
     list-style: none;
     display: flex;
     gap: 35px;
+    background-color: white;
 }
 
 .pkmn-gallery ul li {
@@ -287,7 +298,6 @@ main .introducao {
     display: flex;
     text-align: right;
     align-items: center;
-    width: 600px;
 }
 
 .text img {
@@ -314,7 +324,6 @@ main .introducao {
 footer {
     background-color: var(--vermelho);
     height: 180px;
-    width: 100%;
     display: flex;
     flex-direction: column;
 }
@@ -459,4 +468,19 @@ footer .logo {
 
 .px-border::after {
     margin: -5px;
+}
+
+.px-small-corner {
+    clip-path: polygon(0px calc(100% - 5px),
+            5px calc(100% - 5px),
+            5px 100%,
+            calc(100% - 5px) 100%,
+            calc(100% - 5px) calc(100% - 5px),
+            100% calc(100% - 5px),
+            100% 5px,
+            calc(100% - 5px) 5px,
+            calc(100% - 5px) 0px,
+            5px 0px,
+            5px 5px,
+            0px 5px);
 }

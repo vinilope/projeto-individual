@@ -27,7 +27,7 @@
             <h1>Faça login!</h1>
             <input id="input_email" class="inp inp-signin px-corner" placeholder="E-mail:">
             <input id="input_senha" class="inp inp-signin px-corner" placeholder="Senha:">
-            <button class="btn px-corner" onclick="entrar()">Criar Conta</button>
+            <button class="btn px-corner" onclick="entrar()">Entrar</button>
         </div>
         <div class="alerta-erro">
             <div style="display: none;" class="card-erro px-border" id="cardErro">
@@ -76,9 +76,9 @@
                 resposta.json().then(json => {
                     console.log(json);
                     console.log(JSON.stringify(json));
-                    sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.NOME_USUARIO = json.nome;
-                    sessionStorage.ID_USUARIO = json.id;
+                    sessionStorage.EMAIL_USUARIO = json.email;
+                    sessionStorage.ID_USUARIO = json.id
 
                     setTimeout(function () {
                         window.location = "./usuario.html";
