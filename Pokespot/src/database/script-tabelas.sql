@@ -8,8 +8,16 @@ create table usuario (
 	email varchar(80) not null,
 	senha varchar(60) not null,
 	dtNasc date not null,
-	sexo char(1),
-	constraint chkSexoUsuario check (sexo in('f', 'm', null))
+	fotoPerfil varchar(255) default 'assets/img/user/default.png',
+    diasConsecutivos int
+);
+
+create table historico_log (
+	idLog int primary key auto_increment,
+	fkUsuario int,
+	constraint fkLogUsuario foreign key (fkUsuario)
+		references usuario(idUsuario),
+	dtHoraLogin datetime default current_timestamp
 );
 
 create table pokemon (
@@ -23,6 +31,7 @@ create table pokemon (
 );
 
 create table pokemonTreinador (
+	idPokeTre int primary key auto_increment,
 	fkUsuario int,
 	fkPokemon int,
 	primary key (fkUsuario, fkPokemon),
@@ -31,7 +40,8 @@ create table pokemonTreinador (
 	constraint fkPokemonPkmnTreinador foreign key (fkPokemon)
 		references pokemon(idPokemon),
 	apelido varchar(255),
-	dtAdquirido datetime default current_timestamp
+	dtAdquirido datetime default current_timestamp,
+	isShiny tinyint
 );
 
 create table baseStatus (

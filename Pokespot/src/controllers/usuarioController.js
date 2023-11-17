@@ -24,7 +24,8 @@ function autenticar(req, res) {
                             id: resultadoAutenticar[0].idUsuario,
                             nome: resultadoAutenticar[0].nome,
                             email: resultadoAutenticar[0].email,
-                            senha: resultadoAutenticar[0].senha
+                            senha: resultadoAutenticar[0].senha,
+                            diasConsecutivos: resultadoAutenticar[0].diasConsecutivos
                         });
 
                     } else if (resultadoAutenticar.length == 0) {
@@ -79,7 +80,37 @@ function cadastrar(req, res) {
     }
 }
 
+function registrarLog(req, res) {
+    var id = req.body.id;
+
+    usuarioModel.registrarLog(id);
+}
+
+function verificarUltimoLog(req, res) {
+    var id = req.body.id;
+    console.log(id)
+
+    usuarioModel.verificarUltimoLog(id)
+        .then(
+            function (resultado) {
+                res.json({
+                    log: resultado
+                })
+            }
+        )
+}
+
+function registrarDiasConsecutivos(req, res) {
+    id = req.body.id;
+    diasConsecutivos = req.body.dias;
+
+    usuarioModel.registrarDiasConsecutivos(id, diasConsecutivos)
+}
+
 module.exports = {
     cadastrar,
-    autenticar
+    autenticar,
+    registrarLog,
+    verificarUltimoLog,
+    registrarDiasConsecutivos
 }

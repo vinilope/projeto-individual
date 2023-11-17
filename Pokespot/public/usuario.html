@@ -30,17 +30,31 @@
             <li><a href="index.html">Início</a></li>
             <li><a href="pokedex.html">Pokedéx</a></li>
         </ul>
+        <ul class="lista">
+            <li class="name-pfp"><img class="profile-img" src="assets/img/icon/default.png" alt="">Treinador</li>
+            <li class="name-pfp"><img class="logout-img" src="assets/img/icon/logout.png" alt="">Sair</li>
+        </ul>
     </div>
-        <main id="main_container">
-            <div id="pokemon_wrap"></div>
-            <div id="pokemon_info"></div>
-        </main>
+    <main id="main_container">
+
+        <div style="margin-top: 140px" id="trainer_wrap" class="trainer-wrap"></div>
+        <divs style="margin-top: 0;" id="pokemon_wrap"></div>
+        <div id="pokemon_info"></div>
+    </main>
 </body>
 
 </html>
 <script src="script/user_pokemon.js"></script>
 
 <script>
+    trainer_wrap.innerHTML = `
+            <h1 class="trainer-name">${sessionStorage.NOME_USUARIO}</h1>
+            <div class="px-border number-wrap">
+                <h5>Entrou há</h5>
+                <span>${sessionStorage.DIAS_CONSECUTIVOS}</span>
+                <h5>dias seguidos!</h5>
+            </div>
+        `;
 
     function closeInfo() {
         pokemon_info.style.display = 'none';

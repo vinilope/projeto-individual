@@ -80,3 +80,24 @@
   bottom: 20px;
   cursor: pointer;
 }
+
+.number-wrap {
+  width: 150px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-color: var(--vermelho);
+  flex-direction: column;
+}
+
+.number-wrap span {
+  font-size: 35px;
+}
+
+.trainer-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}

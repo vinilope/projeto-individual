@@ -124,6 +124,8 @@ header .container {
     overflow-x: hidden;
     padding-top: 60px;
     transition: 0.5s;
+    display: flex;
+    flex-direction: column;
 }
 
 .sidenav a {
@@ -137,6 +139,35 @@ header .container {
 
 .sidenav a:hover {
     color: #f1f1f1;
+}
+
+.lista {
+    position: absolute;
+    bottom: 155px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-left: 30px;
+    width: 250px;
+    flex-direction: column;
+    color: white;
+    list-style: none;
+    gap: 20px;
+}
+
+.profile-img {
+    border-radius: 50%;
+    width: 50px;
+}
+
+.logout-img {
+    width: 40px;
+}
+
+.name-pfp {
+    display: flex;
+    align-items: flex-end;
+    gap: 15px;
 }
 
 /* FIM BARRA LATERAL */

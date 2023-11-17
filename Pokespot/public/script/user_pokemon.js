@@ -73,15 +73,15 @@ function capitalizeFirstLetter(string) {
 }
 
 function notFound() {
-    pokemon_wrap.innerText = `<div class="not-found px-border">
+    pokemon_wrap.innerHTML = `<div class="not-found px-border">
             <img src="assets/img/icon/down-arrow.png">
             <span>Pokémon não encontrado!</span>
-        <div>`;
+        </div>`;
 }
 
 function renomear(id) {
     apelido = apelido_h2.innerHTML.replaceAll('<br>', ' ');
-    
+
     console.log(id, apelido)
     fetch("/pokemon/renomear", {
         method: "POST",
@@ -96,16 +96,7 @@ function renomear(id) {
         .then(function (resposta) {
             if (resposta.ok) {
                 console.log(resposta)
-                getPokemonData(pkmn_pesquisado.value);
                 location.reload()
-                // resposta.json().then(json => {
-                //     if (json.tamanho > 0) {
-                //         drawPokemon(json.pokemon)
-                //     } else {
-                //         console.log(json.tamanho)
-                //         notFound();
-                //     }
-                // })
             } else {
                 throw "Houve um erro ao tentar buscar os pokémons!";
             }
@@ -118,63 +109,43 @@ function renomear(id) {
 function getTypeColor(type) {
     switch (type) {
         case 'normal':
-            return '#aaaa99'
-            break;
+            return '#aaaa99';
         case 'fogo':
-            return '#ff4422'
-            break;
+            return '#ff4422';
         case 'água':
-            return '#3399ff'
-            break;
+            return '#3399ff';
         case 'elétrico':
-            return '#ffcc33'
-            break;
+            return '#ffcc33';
         case 'planta':
-            return '#77cc55'
-            break;
+            return '#77cc55';
         case 'gelo':
-            return '#66ccff'
-            break;
+            return '#66ccff';
         case 'lutador':
-            return '#66ccff'
-            break;
+            return '#66ccff';
         case 'venenoso':
-            return '#aa5599'
-            break;
+            return '#aa5599';
         case 'terra':
-            return '#ddbb55'
-            break;
+            return '#ddbb55';
         case 'voador':
-            return '#ddbb55'
-            break;
+            return '#ddbb55';
         case 'psíquico':
-            return '#ff5599'
-            break;
+            return '#ff5599';
         case 'inseto':
-            return '#aabb22'
-            break;
+            return '#aabb22';
         case 'pedra':
-            return '#bbaa66'
-            break;
+            return '#bbaa66';
         case 'fantasma':
-            return '#6666bb'
-            break;
+            return '#6666bb';
         case 'dragão':
-            return '#7766ee'
-            break;
+            return '#7766ee';
         case 'sombrio':
-            return '#775544'
-            break;
+            return '#775544';
         case 'metálico':
-            return '#aaaabb'
-            break;
+            return '#aaaabb';
         case 'fada':
-            return '#ee99ee'
-            break;
-
+            return '#ee99ee';
 
         default:
-            return 'red'
-            break;
+            return 'red';
     }
 }
