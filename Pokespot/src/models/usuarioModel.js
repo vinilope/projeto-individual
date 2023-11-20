@@ -3,11 +3,18 @@ var database = require("../database/config")
 function cadastrar(apelido, email, senha, dtNasc) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", apelido, email, senha);
 
-    var instrucao = `
+    var instrucaoCadastro = `
         INSERT INTO usuario (nome, email, senha, dtNasc) VALUES ('${apelido}', '${email}', '${senha}', '${dtNasc}');
     `;
-    console.log("Executando a instrução SQL: \n" + instrucao);
-    return database.executar(instrucao);
+    console.log("Executando a instrução SQL: \n" + instrucaoCadastro);
+    
+    return database.executar(instrucaoCadastro);
+}
+
+function buscarID(email, senha) {
+    var instrucaoBuscarID = `SELECT idUsuario FROM usuario WHERE email = '${email}' AND senha = '${senha}';`;
+    console.log("Executando a instrução SQL: \n" + instrucaoBuscarID);
+    return database.executar(instrucaoBuscarID)
 }
 
 function autenticar(email, senha) {
@@ -38,7 +45,6 @@ function registrarDiasConsecutivos(id, diasConsecutivos) {
     
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
-
 }
 
 module.exports = {
@@ -46,5 +52,6 @@ module.exports = {
     autenticar,
     registrarLog,
     verificarUltimoLog,
-    registrarDiasConsecutivos
+    registrarDiasConsecutivos,
+    buscarID
 };

@@ -1,6 +1,6 @@
 var database = require("../database/config")
 
-function getPokemonData(especie) {
+function buscarDadosPokemon(especie) {
     console.log(especie)
     var instrucao = `select * from pokemon join sprite on idPokemon = idSprite where especie like "${especie}%"`
 
@@ -8,8 +8,8 @@ function getPokemonData(especie) {
     return database.executar(instrucao);
 }
 
-function getTrainerPokemon(id, especie) {
-    var instrucao = `select row_number() over() as id, pokemonTreinador.*, pokemon.*, sprite.* from usuario join pokemonTreinador on idUsuario = fkUsuario join pokemon on idPokemon = fkPokemon join sprite on idPokemon = idSprite where idUsuario = "${id}" && especie like "${especie}%"`;
+function buscarPokemonTreinador(id, especie) {
+    var instrucao = `select row_number() over() as id, pt.idPokeTre, pt.fkPokemon, pt.dtAdquirido, pt.isShiny, coalesce(apelido, (select especie from pokemon where idPokemon = fkPokemon)) apelido, pokemon.*, sprite.* from usuario join pokemonTreinador pt on idUsuario = fkUsuario join pokemon on idPokemon = fkPokemon join sprite on idPokemon = idSprite where idUsuario = "${id}" && especie like "${especie}%"`;
 
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -22,8 +22,24 @@ function renomear(id, apelido) {
     return database.executar(instrucao);
 }
 
+function inserirPokemon(idTre, idPoke, shiny) {
+    var instrucao = `insert into pokemonTreinador (fkUsuario, fkPokemon, isShiny) values (${idTre}, ${idPoke}, ${shiny});`
+
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+function buscarQtdPokemon(id) {
+    var instrucao = `select count(*) qtdPkmn from pokemonTreinador where fkusuario = ${id};`
+
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 module.exports = {
-    getPokemonData,
-    getTrainerPokemon,
-    renomear
+    buscarDadosPokemon,
+    buscarPokemonTreinador,
+    renomear,
+    inserirPokemon,
+    buscarQtdPokemon
 }

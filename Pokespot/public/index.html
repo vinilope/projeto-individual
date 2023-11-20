@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Inicial</title>
     <link rel="icon" href="assets/img/icon/pokespot_icon.png">
-    <script src="https://kit.fontawesome.com/384071f692.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/pokedex.css">
 </head>
@@ -15,28 +14,33 @@
     <header>
         <div class="container">
             <div class="logo">
-                <img src="assets/img/icon/logo_pkspt.png" alt="">
+                <a href="index.html"><img src="assets/img/icon/logo_pkspt.png" alt=""></a>
             </div>
-            <div class="container-cadastro-btn">
-                <button class="btn btn-conectar px-corner" onclick="conectar()"><span>Conectar</span></button>
-                <button class="btn btn-cadastrar px-corner" onclick="cadastrar()"><span>Criar Conta</span></button>
+            <div id="container_cadastro" class="container-cadastro-btn">
             </div>
         </div>
     </header>
 
-    <div id="mySidenav" class="sidenav display-none-on-start">
-        <ul>
-            <li><a href="index.html">Início</a></li>
-            <li><a href="pokedex.html">Pokedéx</a></li>
+    <div id="side_menu" class="sideMenu display-none-on-start">
+        <ul class="menu-item">
+            <li><a href="index.html">
+                    <img src="assets/img/icon/down-arrow-gray.png" class="down-arrow">
+                    <span>Início</span>
+                </a></li>
+            <li><a href="pokedex.html">
+                    <img src="assets/img/icon/down-arrow-gray.png" class="down-arrow">
+                    <span>Pokedéx</span>
+                </a></li>
+        </ul>
+        <ul id="account_ul" class="account-ul">
         </ul>
     </div>
-
 
     <section id="section_pkb" class="section-pkb">
         <div id="div_pkb" class="container-pkb">
             <div class="pkb-white"></div>
             <div class="black-strip">
-                <button class="pkb-btn" onclick="girarPokebola()">
+                <button class="pkb-btn" onclick="iniciarComPokebola()">
                     <div class="pkb-circle"></div>
                 </button>
             </div>
@@ -62,11 +66,11 @@
             </div>
         </section>
 
-        <section class="gallery-section">
+        <section class="galeria-section">
             <div class="titulo">
                 <h1>Melhores Pokémon!</h1>
             </div>
-            <div class="pkmn-gallery ">
+            <div class="pkmn-galeria ">
                 <ul>
                     <li>
                         <div class="pokemon-card">
@@ -120,8 +124,8 @@
                             dolor sequi recusandae quam libero eligendi expedita illum sapiente, eos aliquid. Quos
                             expedita
                             voluptatibus molestiae, deleniti cum accusantium?</span>
+                    </div>
                 </div>
-            </div>
             </div>
         </section>
     </main>
@@ -138,36 +142,52 @@
 </body>
 
 </html>
-<script src="script/pkmn_follows.js"></script>
+<script src="scripts/navegacao_geral.js"></script>
+<script src="scripts/navbar_login.js"></script>
+<script src="scripts/pkmn_follows.js"></script>
 
 <script>
-    function girarPokebola() {
+    if (sessionStorage.ID_USUARIO) {
+        iniciarSemPokebola();
+    }
+
+    iniciarSemPokebola()
+
+    function iniciarComPokebola() {
+        elementos = document.querySelectorAll('.display-none-on-start')
         div_pkb.style.transform = 'rotate(90deg)';
+
         setTimeout(() => {
             div_pkb.style.marginLeft = '-109%';
             main_container.style.display = 'flex';
             footer_container.style.display = 'flex';
             container_pkmn.style.display = 'flex';
-            mySidenav.style.display = 'block';
+            side_menu.style.display = 'block';
             setTimeout(() => {
-                main_container.style.visibility = 'visible';
-                main_container.style.opacity = '1';
-                footer_container.style.visibility = 'visible';
-                footer_container.style.opacity = '1';
-                container_pkmn.style.visibility = 'visible';
-                container_pkmn.style.opacity = '1';
-                mySidenav.style.visibility = 'visible';
-                mySidenav.style.opacity = '1';
+                for (let i = 0; i < elementos.length; i++) {
+                    elementos[i].style.visibility = 'visible';
+                    elementos[i].style.opacity = '1';
+                }
                 section_pkb.style.display = 'none';
             }, 500);
         }, 1000);
     }
 
-    function cadastrar() {
-        location.href = "./cadastrar.html";
+    function iniciarSemPokebola() {
+        elementos = document.querySelectorAll('.display-none-on-start')
+        div_pkb.style.transform = 'rotate(90deg)';
+
+        div_pkb.style.marginLeft = '-109%';
+        main_container.style.display = 'flex';
+        footer_container.style.display = 'flex';
+        container_pkmn.style.display = 'flex';
+        side_menu.style.display = 'block';
+
+        for (let i = 0; i < elementos.length; i++) {
+            elementos[i].style.visibility = 'visible';
+            elementos[i].style.opacity = '1';
+        }
+        section_pkb.style.display = 'none';
     }
 
-    function conectar() {
-        location.href = "./login.html"
-    }
 </script>

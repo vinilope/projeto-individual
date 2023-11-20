@@ -3,10 +3,11 @@ var idUsuario = sessionStorage.ID_USUARIO;
 
 var url = 'https://img.pokemondb.net/sprites/';
 var allPkmn;
-getPokemonData('');
+buscarDadosPokemon('');
+buscarQtdPokemon(idUsuario)
 
-function getPokemonData(pkmnPesquisado) {
-    fetch("/pokemon/getTrainerPokemon", {
+function buscarDadosPokemon(pkmnPesquisado) {
+    fetch("/pokemon/buscarPokemonTreinador", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -45,25 +46,34 @@ function drawPokemon(pokemon) {
     for (let pkmnAtual = 0; pkmnAtual < pokemon.length; pkmnAtual++) {
         // id = pkmnAtual + 1;
         pkmn = pokemon[pkmnAtual]
+        var shinyImg = ''
+        var img = pkmn.normal
+
+        if(pkmn.isShiny) {
+            shinyImg = '<img class="estrela-shiny" src="assets/img/icon/shiny.png">'
+            img = pkmn.shiny
+        }
 
         pkmnHTMLmsg += `
-                <div onclick="showPokemonInfo('${pkmn.id}')" class="pokemon-card">
-                <span class="titulo-id">${pkmn.idPokemon}</span>
+                <div onclick="mostrarInfoPokemon('${pkmn.id}')" class="pokemon-card">
+                    <span class="titulo-id">${pkmn.idPokemon}</span>
+                    <div class="apelido-wrap">
+                    ${shinyImg}
                     <span class="titulo-nome">${pkmn.apelido}</span>
-                    <img class="pkmn-img" src="${url + pkmn.normal}" alt="">
+                    </div>
+                    <img class="pkmn-img" src="${url + img}" alt="">
                     <span class="titulo-nome">${capitalizeFirstLetter(pkmn.especie)}</span>
-                    </div>`;
-        // <img onclick="renomear(${pkmn.fkPokemon}, ${pkmn.fkUsuario}, 'dsdg')" class="icon rename" src="assets/img/icon/rename.png">
+                </div>`;
     }
     pokemon_wrap.innerHTML = pkmnHTMLmsg;
 }
 
-function getTypePokemon(pokemon) {
+function buscarTipoPokemon(pokemon) {
     var tipoPokemon = '';
 
-    tipoPokemon += `<p class="px-small-corner" style="background-color: ${getTypeColor(pokemon.tipo1)}">${pokemon.tipo1}</p>`;
+    tipoPokemon += `<p class="px-small-corner" style="background-color: ${buscarCorTipo(pokemon.tipo1)}">${pokemon.tipo1}</p>`;
     if (pokemon.tipo2 != null)
-        tipoPokemon += `<p class="px-small-corner" style="background-color: ${getTypeColor(pokemon.tipo2)}">${pokemon.tipo2}</p>`;
+        tipoPokemon += `<p class="px-small-corner" style="background-color: ${buscarCorTipo(pokemon.tipo2)}">${pokemon.tipo2}</p>`;
 
     return tipoPokemon;
 }
@@ -106,7 +116,32 @@ function renomear(id) {
         });
 }
 
-function getTypeColor(type) {
+function buscarQtdPokemon(id) {
+    fetch("/pokemon/buscarQtdPokemon", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            id: id
+        })
+    })
+        .then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(json => {
+                    sessionStorage.QTD_POKEMON = json.qtdPkmn;
+                    span_qtd_pkmn.innerHTML = sessionStorage.QTD_POKEMON;
+                })
+            } else {
+                throw "Houve um erro ao tentar buscar os pokémons!";
+            }
+        })
+        .catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+}
+
+function buscarCorTipo(type) {
     switch (type) {
         case 'normal':
             return '#aaaa99';

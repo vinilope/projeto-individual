@@ -3,6 +3,21 @@
   height: 30px;
   image-rendering: pixelated;
   cursor: pointer;
+  position: absolute;
+  right: 20px;
+  background-color: white;
+}
+
+#h1_nome {
+  display: flex;
+  align-items: center;
+  font-size: 25px;
+  gap: 10px;
+}
+
+#h1_nome span {
+  font-size: 30px;
+  color: rgb(80, 10, 10);
 }
 
 .rename-wrap {
@@ -13,8 +28,10 @@
 }
 
 .rename-wrap h2 {
-  overflow: hidden;
   outline: none;
+  overflow: hidden;
+  text-indent: 5px;
+  width: 275px;
 }
 
 .rename-input {
@@ -24,6 +41,34 @@
   outline: none;
   width: 80%;
   height: 40px;
+}
+
+.apelido-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 80%;
+  justify-content: center;
+  text-align: center;
+}
+
+.estrela-shiny {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  bottom: 5px;
+}
+
+.estrela-shiny-info {
+  width: 30px;
+  height: 30px;
+  position: relative;
+  top: 2px;
+}
+
+.shiny-wrap {
+  display: flex;
+  gap: 10px;
 }
 
 .img-wrap {
@@ -96,8 +141,42 @@
   font-size: 35px;
 }
 
-.trainer-wrap {
+.treinador-wrap {
   display: flex;
   flex-direction: column;
   gap: 30px;
+}
+
+.card-wrap {
+  display: flex;
+  gap: 30px;
+}
+
+.obter-poke-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-obter-poke {
+  width: 50%;
+  background-color: var(--vermelho);
+  border: none;
+  color: white;
+  height: 55px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.btn-obter-poke img {
+  width: 25px;
+  height: 25px;
+}
+
+.btn-obter-poke span {
+  position: relative;
+  top: 5px;
+  font-size: 20px;
 }

@@ -9,7 +9,7 @@ create table usuario (
 	senha varchar(60) not null,
 	dtNasc date not null,
 	fotoPerfil varchar(255) default 'assets/img/user/default.png',
-    diasConsecutivos int
+    diasConsecutivos int default 0
 );
 
 create table historico_log (
@@ -27,14 +27,14 @@ create table pokemon (
 	tipo1 varchar(30),
 	tipo2 varchar(30),
 	altura int,
-	peso int
+	peso int,
+	raridade int
 );
 
 create table pokemonTreinador (
 	idPokeTre int primary key auto_increment,
 	fkUsuario int,
 	fkPokemon int,
-	primary key (fkUsuario, fkPokemon),
 	constraint fkUsuarioPkmnTreinador foreign key (fkUsuario)
 		references usuario(idUsuario),
 	constraint fkPokemonPkmnTreinador foreign key (fkPokemon)

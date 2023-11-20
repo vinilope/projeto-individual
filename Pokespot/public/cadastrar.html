@@ -13,9 +13,9 @@
     <header>
         <div class="container">
             <div class="logo">
-                <img src="assets/img/icon/logo_pkspt.png" alt="">
+                <a href="index.html"><img src="assets/img/icon/logo_pkspt.png" alt=""></a>
             </div>
-            <div class="container-cadastro-btn">
+            <div id="container_cadastro" class="container-cadastro-btn">
                 <button class="btn btn-conectar px-corner" onclick="conectar()"><span>Conectar</span></button>
                 <button class="btn btn-cadastrar px-corner"><span>Criar Conta</span></button>
             </div>
@@ -23,15 +23,47 @@
     </header>
 
     <main>
-        <div class="card signin-card">
+        <div id="signin_card" class="card signin-card">
             <h1>Cadastre-se!</h1>
             <input id="input_apelido" class="inp inp-signin px-corner" placeholder="Apelido:">
             <input id="input_email" class="inp inp-signin px-corner" placeholder="E-mail:">
             <input id="input_senha" class="inp inp-signin px-corner" placeholder="Senha:">
             <input id="input_conf_senha" class="inp inp-signin px-corner" placeholder="Confirmar Senha:">
             <input id="input_dt" class="inp inp-date px-corner" type="date"><br>
-            <button class="btn px-corner" onclick="cadastrar()">Criar Conta</button>
-
+            <button class="btn px-corner" onclick="seguinte()">Criar Conta</button>
+        </div>
+        <div style="display: none;" id="choose_pokemon" class="card choose-pokemon px-border">
+            <span class="px-border titulo"><span>Escolha seu pokémon inicial</span></span>
+            <ul class="radioGroup">
+                <li>
+                    <input onclick="(() => setTimeout(moverSeta, 50))()" type="radio" value="1" name="pokemonInicial"
+                        id="bulba">
+                    <label class="px-corner" for="bulba">
+                        <img src="https://img.pokemondb.net/sprites/sword-shield/icon/bulbasaur.png" alt="">
+                        <span>Bulbasaur</span>
+                    </label>
+                    <span id="img1"></span>
+                </li>
+                <li>
+                    <input onclick="(() => setTimeout(moverSeta, 50))()" type="radio" value="7" name="pokemonInicial"
+                        id="squi">
+                    <label class="px-corner" for="squi">
+                        <img src="https://img.pokemondb.net/sprites/sword-shield/icon/squirtle.png" alt="">
+                        <span>Squirtle</span>
+                    </label>
+                    <span id="img4"></span>
+                </li>
+                <li>
+                    <input onclick="(() => setTimeout(moverSeta, 50))()" type="radio" value="4" name="pokemonInicial"
+                        id="char">
+                    <label class="px-corner" for="char">
+                        <img src="https://img.pokemondb.net/sprites/sword-shield/icon/charmander.png" alt="">
+                        <span>Charmander</span>
+                    </label>
+                    <span id="img7"></span>
+                </li>
+            </ul>
+            <button onclick="cadastrar()" class="btn px-corner">Escolher</button>
         </div>
         <div class="alerta-erro">
             <div style="display: none;" class="card-erro px-border" id="cardErro">
@@ -41,11 +73,37 @@
 </body>
 
 </html>
-
+<script src="scripts/obter_pokemon.js"></script>
 <script>
     var apelido, email, senha, confSenha, dtNasc = '';
+    moverSeta()
 
-    function cadastrar() {
+    function moverSeta() {
+        switch (document.querySelector('input[name="pokemonInicial"]:checked').value) {
+            case "1":
+                img1.innerHTML = `<img class='down-arrow' src='assets/img/icon/down-arrow-white.png'>`
+                img4.innerHTML = ``
+                img7.innerHTML = ``
+                break;
+
+            case "4":
+                img1.innerHTML = ``
+                img4.innerHTML = ``
+                img7.innerHTML = `<img class='down-arrow' src='assets/img/icon/down-arrow-white.png'>`
+                break;
+
+            case "7":
+                img1.innerHTML = ``
+                img4.innerHTML = `<img class='down-arrow' src='assets/img/icon/down-arrow-white.png'>`
+                img7.innerHTML = ``
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    function seguinte() {
         apelido = input_apelido.value;
         email = input_email.value;
         senha = input_senha.value;
@@ -56,6 +114,13 @@
             console.log('Entrada inválida')
             return false;
         }
+
+        signin_card.style.display = 'none';
+        choose_pokemon.style.display = 'flex'
+    }
+
+    function cadastrar() {
+        idPoke = document.querySelector('input[name="pokemonInicial"]:checked').value;
 
         fetch("/usuarios/cadastrar", {
             method: "POST",
@@ -70,9 +135,10 @@
             }),
         })
             .then(function (resposta) {
-                console.log("resposta: ", resposta);
-
                 if (resposta.ok) {
+
+                    buscarID(email, senha);
+
                     cardErro.style.display = "flex";
 
                     cardErro.innerHTML =
@@ -95,13 +161,76 @@
     }
 
     function validarCampos() {
-        return
-        (
+        return (
             apelido == "" ||
             email == "" ||
             senha == "" ||
             confSenha != senha ||
             dtNasc == ""
         );
+    }
+
+    function inserirPokemon(idTre, idPoke) {
+
+        fetch("/pokemon/inserirPokemon", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                idPoke: idPoke,
+                idTre: idTre,
+                shiny: isShiny()
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    console.log('Ok')
+                } else {
+                    throw "Houve um erro ao tentar cadastrar Pokémon!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+        return false;
+    }
+
+    function buscarID(email, senha) {
+        fetch("/usuarios/buscarID", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                email: email,
+                senha: senha
+            })
+        })
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    console.log(resposta)
+
+                    resposta.json().then((json) => {
+                        inserirPokemon(json.id, idPoke)
+                    })
+                } else {
+                    throw "Houve um erro ao tentar buscar os pokémons!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+    }
+
+    function isShiny() {
+        return (Math.random() * 256) < 1;
+    }
+
+    function conectar() {
+        location.href = "./login.html";
     }
 </script>

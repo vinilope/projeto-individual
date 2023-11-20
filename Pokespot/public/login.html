@@ -13,11 +13,11 @@
     <header>
         <div class="container">
             <div class="logo">
-                <img src="assets/img/icon/logo_pkspt.png" alt="">
+                <a href="index.html"><img src="assets/img/icon/logo_pkspt.png" alt=""></a>
             </div>
             <div class="container-cadastro-btn">
                 <button class="btn btn-conectar px-corner" onclick="conectar()"><span>Conectar</span></button>
-                <button class="btn btn-cadastrar px-corner"><span>Criar Conta</span></button>
+                <button class="btn btn-cadastrar px-corner" onclick="cadastrar()"><span>Criar Conta</span></button>
             </div>
         </div>
     </header>
@@ -80,6 +80,7 @@
                     sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.ID_USUARIO = json.id
                     sessionStorage.DIAS_CONSECUTIVOS = json.diasConsecutivos;
+                    sessionStorage.QTD_POKEMON = json.qtdPkmn;
 
                     verificarDiasConsecutivos(json.id);
                     registrarLog(json.id);
@@ -155,7 +156,7 @@
                     console.log(resposta)
 
                     resposta.json().then(json => {
-                        atualizarDiaConsecutivo(json.log[0].diff);
+                        atualizarDiaConsecutivo(json.diff);
                     })
                 } else {
                     throw "Houve um erro ao tentar buscar os pokémons!";
@@ -167,6 +168,7 @@
     }
 
     function atualizarDiaConsecutivo(diferencaUltimoDiaLog) {
+        console.log(diferencaUltimoDiaLog)
         var diasConsecutivos = Number(sessionStorage.DIAS_CONSECUTIVOS);
 
         if (diferencaUltimoDiaLog == 1) {
@@ -197,5 +199,9 @@
             .catch(function (resposta) {
                 console.log(`#ERRO: ${resposta}`);
             });
+    }
+
+    function cadastrar() {
+        location.href = "./cadastrar.html";
     }
 </script>

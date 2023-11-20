@@ -80,3 +80,88 @@ main {
 #mensagem_erro {
     font-size: 0.9vw;
 }
+
+main {
+    margin: auto;
+}
+
+.choose-pokemon {
+    background-color: var(--vermelho);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.choose-pokemon .titulo {
+    background-color: white;
+    padding: 5px 10px;
+    margin-bottom: 20px;
+}
+
+.titulo span {
+    position: relative;
+    top: 2px;
+    font-size: 20px;
+}
+
+.radioGroup {
+    display: flex;
+    list-style: none;
+    gap: 40px;
+}
+
+.radioGroup li {
+    width: 100px;
+    height: 130px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.radioGroup label:hover {
+    filter: brightness(0.95);
+}
+
+.radioGroup li .down-arrow {
+    width: 20px;
+    position: relative;
+    transform: rotate(180deg);
+    bottom: 5px;
+}
+
+.radioGroup input {
+    display: none;
+}
+
+.radioGroup label {
+    background-color: white;
+    width: 120px;
+    height: 100px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: 100ms;
+}
+
+.radioGroup label img {
+    position: relative;
+    bottom: 10px;
+}
+
+.radioGroup span {
+    font-size: 13px;
+    position: relative;
+    top: 0;
+}
+
+.radioGroup img {
+    width: 90px;
+}
+
+.radioGroup input:checked + label {
+    transform: scale(1.1);
+}

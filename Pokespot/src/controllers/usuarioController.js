@@ -25,7 +25,8 @@ function autenticar(req, res) {
                             nome: resultadoAutenticar[0].nome,
                             email: resultadoAutenticar[0].email,
                             senha: resultadoAutenticar[0].senha,
-                            diasConsecutivos: resultadoAutenticar[0].diasConsecutivos
+                            diasConsecutivos: resultadoAutenticar[0].diasConsecutivos,
+                            qtdPkmn: resultadoAutenticar[0].qtdPkmn
                         });
 
                     } else if (resultadoAutenticar.length == 0) {
@@ -92,25 +93,58 @@ function verificarUltimoLog(req, res) {
 
     usuarioModel.verificarUltimoLog(id)
         .then(
-            function (resultado) {
+            function (resultadoVerificar) {
                 res.json({
-                    log: resultado
-                })
+                    diff: resultadoVerificar[0].diff
+                });
             }
-        )
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao realizar o cadastro! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
 }
 
 function registrarDiasConsecutivos(req, res) {
     id = req.body.id;
     diasConsecutivos = req.body.dias;
-
     usuarioModel.registrarDiasConsecutivos(id, diasConsecutivos)
 }
+
+function buscarID(req, res) {
+    var email = req.body.email;
+    var senha = req.body.senha;
+
+    usuarioModel.buscarID(email, senha)
+        .then(
+            function (resultadoBuscarID) {
+                res.json({
+                    id: resultadoBuscarID[0].idUsuario
+                });
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao realizar o cadastro! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
 
 module.exports = {
     cadastrar,
     autenticar,
     registrarLog,
     verificarUltimoLog,
-    registrarDiasConsecutivos
+    registrarDiasConsecutivos,
+    buscarID
 }

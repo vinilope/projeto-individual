@@ -1,8 +1,8 @@
 var url = 'https://img.pokemondb.net/sprites/';
-getPokemonData('');
+buscarDadosPokemon('');
 
-function getPokemonData(pkmnPesquisado) {
-    fetch("/pokemon/getPokemonData", {
+function buscarDadosPokemon(pkmnPesquisado) {
+    fetch("/pokemon/buscarDadosPokemon", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -44,18 +44,18 @@ function drawPokemon(pokemon) {
             <span class="titulo-id">${pokemon[pkmnAtual].idPokemon}</span>
             <span class="titulo-nome">${capitalizeFirstLetter(pokemon[pkmnAtual].especie)}</span>
             <img src="${url + pokemon[pkmnAtual].normal}" alt="">
-            <span class="tipo-pokemon">${getTypePokemon(pokemon[pkmnAtual])}</span>   
+            <span class="tipo-pokemon">${buscarTipoPokemon(pokemon[pkmnAtual])}</span>   
             </div>`;
     }
     pokemon_wrap.innerHTML = pkmnHTMLmsg;
 }
 
-function getTypePokemon(pokemon) {
+function buscarTipoPokemon(pokemon) {
     var tipoPokemon = '';
 
-    tipoPokemon += `<p class="px-small-corner" style="background-color: ${getTypeColor(pokemon.tipo1)}">${pokemon.tipo1}</p>`;
+    tipoPokemon += `<p class="px-small-corner" style="background-color: ${buscarCorTipo(pokemon.tipo1)}">${pokemon.tipo1}</p>`;
     if (pokemon.tipo2 != null)
-        tipoPokemon += `<p class="px-small-corner" style="background-color: ${getTypeColor(pokemon.tipo2)}">${pokemon.tipo2}</p>`;
+        tipoPokemon += `<p class="px-small-corner" style="background-color: ${buscarCorTipo(pokemon.tipo2)}">${pokemon.tipo2}</p>`;
 
     return tipoPokemon;
 }
@@ -71,7 +71,7 @@ function notFound() {
         <div>`;
 }
 
-function getTypeColor(type) {
+function buscarCorTipo(type) {
     switch (type) {
         case 'normal':
             return '#aaaa99'

@@ -1,9 +1,9 @@
 var pokemonModel = require("../models/pokemonModel");
 
-function getPokemonData(req, res) {
+function buscarDadosPokemon(req, res) {
     var especie = req.body.pkmnEspecie;
 
-    pokemonModel.getPokemonData(especie)
+    pokemonModel.buscarDadosPokemon(especie)
         .then(
             function (resultadoPokemon) {
                 // console.log(`\nResultados encontrados: ${resultadoPokemon.length}`);
@@ -23,11 +23,11 @@ function getPokemonData(req, res) {
         );
 }
 
-function getTrainerPokemon(req, res) {
+function buscarPokemonTreinador(req, res) {
     var id = req.body.id;
     var especie = req.body.pkmnEspecie;
 
-    pokemonModel.getTrainerPokemon(id, especie)
+    pokemonModel.buscarPokemonTreinador(id, especie)
         .then(
             function (resultadoPokemon) {
                 // console.log(`\nResultados encontrados: ${resultadoPokemon.length}`);
@@ -74,8 +74,40 @@ function renomear(req, res) {
     }
 }
 
+function inserirPokemon(req, res) {
+    var idTre = req.body.idTre;
+    var idPoke = req.body.idPoke;
+    var shiny = req.body.shiny;
+
+    pokemonModel.inserirPokemon(idTre, idPoke, shiny);
+}
+
+function buscarQtdPokemon(req, res) {
+    var id = req.body.id;
+
+    pokemonModel.buscarQtdPokemon(id)
+        .then(
+            function (resultadoBuscar) {
+                res.json({
+                    qtdPkmn: resultadoBuscar[0].qtdPkmn
+                });
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao realizar o cadastro! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
 module.exports = {
-    getPokemonData,
-    getTrainerPokemon,
-    renomear
+    buscarDadosPokemon,
+    buscarPokemonTreinador,
+    renomear,
+    inserirPokemon,
+    buscarQtdPokemon
 }

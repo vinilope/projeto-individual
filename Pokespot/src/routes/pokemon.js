@@ -3,16 +3,24 @@ var router = express.Router();
 
 var pokemonController = require("../controllers/pokemonController");
 
-router.post("/getPokemonData", function (req, res) {
-  pokemonController.getPokemonData(req, res);
+router.post("/buscarDadosPokemon", function (req, res) {
+  pokemonController.buscarDadosPokemon(req, res);
 })
 
-router.post("/getTrainerPokemon", function (req, res) {
-  pokemonController.getTrainerPokemon(req, res);
+router.post("/buscarPokemonTreinador", function (req, res) {
+  pokemonController.buscarPokemonTreinador(req, res);
 })
 
 router.post("/renomear", function (req, res) {
   pokemonController.renomear(req, res);
+})
+
+router.post("/inserirPokemon", function (req, res) {
+  pokemonController.inserirPokemon(req, res);
+})
+
+router.post("/buscarQtdPokemon", function (req, res) {
+  pokemonController.buscarQtdPokemon(req, res);
 })
 
 module.exports = router;

@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokédex</title>
-    <script src="https://kit.fontawesome.com/384071f692.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/pokedex.css">
     <link rel="stylesheet" href="css/pesquisa.css">
@@ -15,19 +14,27 @@
     <header>
         <div class="container">
             <div class="logo">
-                <img src="assets/img/icon/logo_pkspt.png" alt="">
+                <a href="index.html"><img src="assets/img/icon/logo_pkspt.png" alt=""></a>
             </div>
             <div class="container-search">
-                <input class="px-border" onkeyup="getPokemonData(pkmn_pesquisado.value)" id="pkmn_pesquisado" placeholder="Pesquisar..." type="text">
+                <input class="px-border" onkeyup="buscarDadosPokemon(pkmn_pesquisado.value)" id="pkmn_pesquisado" placeholder="Pesquisar..." type="text">
                 <img src="assets/img/icon/lupa.png" alt="" class="lupa">
             </div>
         </div>
     </header>
 
-    <div id="mySidenav" class="sidenav">
-        <ul>
-            <li><a href="index.html">Início</a></li>
-            <li><a href="pokedex.html">Pokedéx</a></li>
+    <div id="side_menu" class="sideMenu">
+        <ul class="menu-item">
+            <li><a href="index.html">
+                    <img src="assets/img/icon/down-arrow-gray.png" class="down-arrow">
+                    <span>Início</span>
+                </a></li>
+            <li><a href="pokedex.html">
+                    <img src="assets/img/icon/down-arrow-gray.png" class="down-arrow">
+                    <span>Pokedéx</span>
+                </a></li>
+        </ul>
+        <ul id="account_ul" class="account-ul">
         </ul>
     </div>
 
@@ -37,5 +44,6 @@
 </body>
 
 </html>
-
-<script src="script/list_pokedex_pkmn.js"></script>
+<script src="scripts/navegacao_geral.js"></script>
+<script src="scripts/navbar_login.js"></script>
+<script src="scripts/list_pokedex_pkmn.js"></script>

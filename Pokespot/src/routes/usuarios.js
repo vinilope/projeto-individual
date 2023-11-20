@@ -24,4 +24,8 @@ router.post("/registrarDiasConsecutivos", function (req, res) {
     usuarioController.registrarDiasConsecutivos(req, res);
 });
 
+router.post("/buscarID", function (req, res) {
+    usuarioController.buscarID(req, res);
+});
+
 module.exports = router;

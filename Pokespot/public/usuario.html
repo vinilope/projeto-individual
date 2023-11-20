@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
-    <script src="https://kit.fontawesome.com/384071f692.js" crossorigin="anonymous"></script>
+    <script src="scripts/check_logado.js"></script>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/pokedex.css">
     <link rel="stylesheet" href="css/pesquisa.css">
@@ -16,52 +16,81 @@
     <header>
         <div class="container">
             <div class="logo">
-                <img src="assets/img/icon/logo_pkspt.png" alt="">
+                <a href="index.html"><img src="assets/img/icon/logo_pkspt.png" alt=""></a>
             </div>
             <div class="container-search">
-                <input class="px-border" onkeyup="getPokemonData(pkmn_pesquisado.value)" id="pkmn_pesquisado"
+                <input class="px-border" onkeyup="buscarDadosPokemon(pkmn_pesquisado.value)" id="pkmn_pesquisado"
                     placeholder="Pesquisar..." type="text">
                 <img src="assets/img/icon/lupa.png" alt="" class="lupa">
             </div>
         </div>
     </header>
-    <div id="mySidenav" class="sidenav">
-        <ul>
-            <li><a href="index.html">Início</a></li>
-            <li><a href="pokedex.html">Pokedéx</a></li>
+    
+    <div id="side_menu" class="sideMenu">
+        <ul class="menu-item">
+            <li><a href="index.html">
+                    <img src="assets/img/icon/down-arrow-gray.png" class="down-arrow">
+                    <span>Início</span>
+                </a></li>
+            <li><a href="pokedex.html">
+                    <img src="assets/img/icon/down-arrow-gray.png" class="down-arrow">
+                    <span>Pokedéx</span>
+                </a></li>
         </ul>
-        <ul class="lista">
-            <li class="name-pfp"><img class="profile-img" src="assets/img/icon/default.png" alt="">Treinador</li>
-            <li class="name-pfp"><img class="logout-img" src="assets/img/icon/logout.png" alt="">Sair</li>
+        <ul id="account_ul" class="account-ul">
         </ul>
     </div>
-    <main id="main_container">
 
-        <div style="margin-top: 140px" id="trainer_wrap" class="trainer-wrap"></div>
-        <divs style="margin-top: 0;" id="pokemon_wrap"></div>
+    <main style="gap: 3rem;" id="main_container">
+        <div style="margin-top: 140px" id="treinador_wrap" class="treinador-wrap">
+            <h1 class="treinador-name" id="h1_nome"></h1>
+            <div class="card-wrap">
+                <div class="px-border number-wrap">
+                    <h5>Entrou há</h5>
+                    <span id="span_dias"></span>
+                    <h5>dias seguidos!</h5>
+                </div>
+
+                <div class="px-border number-wrap">
+                    <h5>Você possui</h5>
+                    <span id="span_qtd_pkmn"></span>
+                    <h5>pokémons!</h5>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="obter-poke-wrap">
+            <button class="btn-obter-poke px-border" onclick="buscarPokemon()">
+                <img src="assets/img/icon/pkb-icon.png" alt="">
+                <span>Obtenha um pokémon!</span>
+            </button>
+        </div>
+
+        <h1 id="seus_pokemons">Seus Pokémons</h1>
+        <div style="margin-top: 0;" id="pokemon_wrap"></div>
         <div id="pokemon_info"></div>
     </main>
 </body>
 
 </html>
-<script src="script/user_pokemon.js"></script>
+<script src="scripts/navegacao_geral.js"></script>
+<script src="scripts/navbar_login.js"></script>
+<script src="scripts/user_pokemon.js"></script>
+<script src="scripts/obter_pokemon.js"></script>
 
 <script>
-    trainer_wrap.innerHTML = `
-            <h1 class="trainer-name">${sessionStorage.NOME_USUARIO}</h1>
-            <div class="px-border number-wrap">
-                <h5>Entrou há</h5>
-                <span>${sessionStorage.DIAS_CONSECUTIVOS}</span>
-                <h5>dias seguidos!</h5>
-            </div>
-        `;
+    h1_nome.innerHTML = `Olá, <span>${sessionStorage.NOME_USUARIO}</span>`;
+    span_dias.innerHTML = sessionStorage.DIAS_CONSECUTIVOS;
 
     function closeInfo() {
         pokemon_info.style.display = 'none';
+        treinador_wrap.style.display = 'flex';
         pokemon_wrap.style.display = 'flex';
+        seus_pokemons.style.display = 'block';
     }
 
-    function showPokemonInfo(fkP) {
+    function mostrarInfoPokemon(fkP) {
         var id = fkP - 1;
 
         var pokeTreID = allPkmn[id].idPokeTre;
@@ -70,11 +99,21 @@
         var especie = allPkmn[id].especie;
         var peso = allPkmn[id].peso / 10 + ' kg';
         var altura = allPkmn[id].altura / 10 + ' m';
-        var dtAdquirido = convertDate(allPkmn[id].dtAdquirido);
-        var tipos = getTypePokemon(allPkmn[id]);
+        var dtAdquirido = converterData(allPkmn[id].dtAdquirido);
+        var tipos = buscarTipoPokemon(allPkmn[id]);
         var sprite = allPkmn[id].normal;
+        var shiny = allPkmn[id].isShiny;
 
+        var shinyImg = '';
+
+        if (shiny) {
+            sprite = allPkmn[id].shiny;
+            shinyImg = '<img class="estrela-shiny-info" src="assets/img/icon/shiny.png">'
+        }
+
+        treinador_wrap.style.display = 'none';
         pokemon_wrap.style.display = 'none';
+        seus_pokemons.style.display = 'none';
         pokemon_info.style.display = 'flex';
 
         pokemon_info.innerHTML = `
@@ -84,9 +123,13 @@
                     <img onclick="closeInfo()" class="info-item close" src="assets/img/icon/down-arrow.png" alt="">
                 </div>
 
-                <h5>${pokeID}</h5> 
+                <h5>${pokeID}</h5>
+                
                 <div class="rename-wrap">
-                    <h2 id="apelido_h2" contenteditable="true">${apelido}</h2>
+                    <div class="shiny-wrap">
+                        ${shinyImg}
+                        <h2 id="apelido_h2" contenteditable="true">${apelido}</h2>
+                    </div>
                     <img onclick="renomear(${pokeTreID})" class="icon rename" src="assets/img/icon/rename.png">
                 </div>
                 <div class="img-wrap">
@@ -111,12 +154,12 @@
         `;
     }
 
-    function convertDate(data) {
-        var date = new Date(data);
+    function converterData(date) {
+        var data = new Date(date);
 
-        var dia = date.getDate();
-        var mes = date.getMonth() + 1;
-        var ano = date.getFullYear();
+        var dia = data.getDate();
+        var mes = data.getMonth() + 1;
+        var ano = data.getFullYear();
 
         return (`${dia}/${mes}/${ano}`)
     }

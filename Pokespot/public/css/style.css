@@ -72,6 +72,7 @@ header .container {
     transition: 100ms;
     cursor: pointer;
     width: 150px;
+    background-color: white;
 }
 
 .btn span {
@@ -109,11 +110,35 @@ header .container {
     }
 }
 
+.profile-wrap-upbar {
+    display: flex;
+    align-items: flex-end;
+    gap: 15px;
+    cursor: pointer;
+    transition: 100ms;
+    padding: 10px 15px;
+}
+
+.profile-wrap-upbar:hover {
+    background-color: #00000013;
+}
+
+.profile-wrap-upbar .user-name {
+    color: white;
+    font-size: 20px;
+}
+
+.profile-wrap-upbar .down-arrow-white {
+    width: 15px;
+    position: relative;
+    bottom: 14px;
+}
+
 /* FIM HEADER */
 
 /* BARRA LATERAL */
 
-.sidenav {
+.sideMenu {
     height: 100%;
     width: 250px;
     position: fixed;
@@ -128,46 +153,93 @@ header .container {
     flex-direction: column;
 }
 
-.sidenav a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #818181;
-    display: block;
-    transition: 0.3s;
+.sideMenu .menu-item {
+    margin-left: 30px;
+    font-size: 20px;
+    list-style: none;
 }
 
-.sidenav a:hover {
+.menu-item li a {
+    display: flex;
+    align-items: center;
+}
+
+.menu-item li:hover .down-arrow {
+    left: 4px;
+    transform: rotate(270deg) scale(1.15);
+}
+
+.menu-item li a .down-arrow {
+    width: 12px;
+    padding: 10px;
+    position: relative;
+    left: 0;
+    bottom: 2px;
+    transition: 50ms;
+    transform: rotate(270deg);
+}
+
+.sideMenu a {
+    text-decoration: none;
+    transition: 300ms;
+    color: #bbbbbb;
+}
+
+.sideMenu a:hover {
     color: #f1f1f1;
 }
 
-.lista {
+.account-ul {
     position: absolute;
     bottom: 155px;
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    padding-left: 30px;
     width: 250px;
     flex-direction: column;
     color: white;
     list-style: none;
-    gap: 20px;
 }
 
 .profile-img {
-    border-radius: 50%;
     width: 50px;
 }
 
-.logout-img {
+.account-item img {
     width: 40px;
 }
 
-.name-pfp {
+.account-item {
+    padding: 10px;
+    padding-left: 20px;
+    width: 250px;
+}
+
+.account-item-logged {
+    cursor: pointer;
+}
+
+.account-item-logged:hover {
+    background-color: #241f31;
+}
+
+.account-item {
     display: flex;
     align-items: flex-end;
     gap: 15px;
+}
+
+.acc-link-item {
+    width: calc(100% - 40px);
+    display: flex;
+    justify-content: center;
+    background-color: #242424;
+    padding: 20px;
+    margin: 0;
+    font-size: 15px;
+    word-spacing: 2px;
+    position: relative;
+    top: 15px;
 }
 
 /* FIM BARRA LATERAL */
@@ -270,7 +342,7 @@ main .introducao {
     height: 200px;
 }
 
-.pkmn-gallery ul {
+.pkmn-galeria ul {
     margin-top: 30px;
     list-style: none;
     display: flex;
@@ -278,7 +350,7 @@ main .introducao {
     background-color: white;
 }
 
-.pkmn-gallery ul li {
+.pkmn-galeria ul li {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -286,11 +358,11 @@ main .introducao {
     transition: 300ms;
 }
 
-.pkmn-gallery ul li:hover {
+.pkmn-galeria ul li:hover {
     transform: scale(1.07);
 }
 
-.pkmn-gallery ul li img {
+.pkmn-galeria ul li img {
     width: 200px;
     /* box-shadow:
         -5px 0 0 0 black,
@@ -299,11 +371,11 @@ main .introducao {
         0 5px 0 0 black; */
 }
 
-.pkmn-gallery ul li span {
+.pkmn-galeria ul li span {
     font-weight: 500;
 }
 
-.gallery-section {
+.galeria-section {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -374,7 +446,8 @@ footer .logo {
 
 /* FIM FOOTER */
 
-/* PIXELATED BORDER */
+/* BORDAS PIXELADAS */
+
 .px-corner {
     clip-path: polygon(0px calc(100% - 10px),
             5px calc(100% - 10px),
@@ -515,3 +588,45 @@ footer .logo {
             5px 5px,
             0px 5px);
 }
+
+
+.px-circle {
+    clip-path: polygon(0px calc(100% - 20px),
+            4px calc(100% - 20px),
+            4px calc(100% - 12px),
+            8px calc(100% - 12px),
+            8px calc(100% - 8px),
+            12px calc(100% - 8px),
+            12px calc(100% - 4px),
+            20px calc(100% - 4px),
+            20px 100%,
+            calc(100% - 20px) 100%,
+            calc(100% - 20px) calc(100% - 4px),
+            calc(100% - 12px) calc(100% - 4px),
+            calc(100% - 12px) calc(100% - 8px),
+            calc(100% - 8px) calc(100% - 8px),
+            calc(100% - 8px) calc(100% - 12px),
+            calc(100% - 4px) calc(100% - 12px),
+            calc(100% - 4px) calc(100% - 20px),
+            100% calc(100% - 20px),
+            100% 20px,
+            calc(100% - 4px) 20px,
+            calc(100% - 4px) 12px,
+            calc(100% - 8px) 12px,
+            calc(100% - 8px) 8px,
+            calc(100% - 12px) 8px,
+            calc(100% - 12px) 4px,
+            calc(100% - 20px) 4px,
+            calc(100% - 20px) 0px,
+            20px 0px,
+            20px 4px,
+            12px 4px,
+            12px 8px,
+            8px 8px,
+            8px 12px,
+            4px 12px,
+            4px 20px,
+            0px 20px);
+}
+
+/* FIM BORDAS PIXELADAS */
