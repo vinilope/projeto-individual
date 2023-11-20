@@ -1,4 +1,22 @@
-container_pkmn.innerHTML = '<img id="pkmn" class="following-pkmn" src="https://img.pokemondb.net/sprites/sword-shield/icon/charmander.png">'
+pkmns = [
+    'bulbasaur',
+    'charmander',
+    'squirtle',
+    'pidgey',
+    'rattata',
+    'pikachu',
+    'zubat',
+    'growlithe',
+    'ponyta',
+    'magnemite',
+    'magikarp',
+    'ditto',
+    'eevee',
+    'dratini'
+]
+
+var n = parseInt(Math.random()*pkmns.length)
+container_pkmn.innerHTML = `<img id="pkmn" class="following-pkmn" src="https://img.pokemondb.net/sprites/sword-shield/icon/${pkmns[n]}.png">`
 
 pkmn.style.marginLeft = 100 + "px";
 var mouseX0 = parseInt(pkmn.style.marginLeft, 10);
@@ -19,8 +37,8 @@ setInterval(function () {
     velocidade *= 0.97;
 
     if ((velocidade * 100) < 0) {
-        pkmn.style.transform = 'scale(1, -1)';
+        pkmn.style.transform = 'scale(1, 1)';
     } else {
-        pkmn.style.transform = 'scale(-1, -1)';
+        pkmn.style.transform = 'scale(-1, 1)';
     }
 }, 16);

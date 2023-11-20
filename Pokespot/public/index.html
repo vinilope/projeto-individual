@@ -147,13 +147,12 @@
 <script src="scripts/pkmn_follows.js"></script>
 
 <script>
-    if (sessionStorage.ID_USUARIO) {
+    if (sessionStorage.ID_USUARIO || sessionStorage.EXIBIR_POKEBOLA) {
         iniciarSemPokebola();
     }
 
-    iniciarSemPokebola()
-
     function iniciarComPokebola() {
+        sessionStorage.EXIBIR_POKEBOLA = true;
         elementos = document.querySelectorAll('.display-none-on-start')
         div_pkb.style.transform = 'rotate(90deg)';
 
@@ -164,7 +163,7 @@
             container_pkmn.style.display = 'flex';
             side_menu.style.display = 'block';
             setTimeout(() => {
-                for (let i = 0; i < elementos.length; i++) {
+                for (var i = 0; i < elementos.length; i += 1) {
                     elementos[i].style.visibility = 'visible';
                     elementos[i].style.opacity = '1';
                 }
@@ -183,7 +182,7 @@
         container_pkmn.style.display = 'flex';
         side_menu.style.display = 'block';
 
-        for (let i = 0; i < elementos.length; i++) {
+        for (var i = 0; i < elementos.length; i += 1) {
             elementos[i].style.visibility = 'visible';
             elementos[i].style.opacity = '1';
         }

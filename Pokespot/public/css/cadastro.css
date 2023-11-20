@@ -12,25 +12,37 @@ main {
 }
 
 .signin-card {
-    width: 50%;
-    height: 70%;
+    width: 500px;
     background-position: center;
-    background-image: url(../assets/img/border/bg-card.png  );
-    background-size: contain;
-    background-repeat: no-repeat;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     gap: 15px;
-    margin-top: 140px;
+    margin-top: 200px;
     image-rendering: pixelated;
+}
+
+.img-bg {
+    position: absolute;
+    width: 500px;
+    height: 750px;
+    background-size: contain;
+
+}
+
+.signin-bg {
+    background-image: url(../assets/img/border/card-bg-long.png);
+}
+
+.login-bg {
+    background-image: url(../assets/img/border/card-bg-short.png);
 }
 
 .signin-card .inp {
     height: 42px;
     text-indent: 10px;
-    width: 45%;
+    width: 80%;
     border: none;
 }
 
@@ -48,6 +60,21 @@ main {
     color: white;
     position: relative;
     bottom: 40px;
+}
+
+.dt-wrap {
+    display: grid;
+    grid-template-columns: 1.8fr 1.2fr;
+    width: 80%;
+    gap: 10px;
+    z-index: 0;
+}
+
+.dt-wrap select {
+    border: none;
+    height: 42px;
+    padding: 5px 10px;
+    background-color: white;
 }
 
 .card-erro {
@@ -165,3 +192,50 @@ main {
 .radioGroup input:checked + label {
     transform: scale(1.1);
 }
+
+/* VALIDAÇÃO */
+
+.validacao-ul {
+    width: 80%;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding: 10px;
+}
+
+.item-validacao {
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.validacao-cumprida {
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #767676;
+    position: relative;
+    width: fit-content;
+}
+
+.validacao-cumprida .span-validacao:before {
+    content: '';
+    position: absolute;
+    top: 45%;
+    left: 18px;
+    width: calc(100% - 18px);
+    height: 2px;
+    background-color: #767676;
+}
+
+.item-validacao img {
+    width: 10px;
+    height: 10px;
+    position: relative;
+    bottom: 1.5px;
+}
+
+/* FIM VALIDAÇÃO */

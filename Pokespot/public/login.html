@@ -24,6 +24,7 @@
 
     <main>
         <div class="card signin-card">
+            <span class="img-bg login-bg"></span>
             <h1>Faça login!</h1>
             <input id="input_email" class="inp inp-signin px-corner" placeholder="E-mail:">
             <input id="input_senha" class="inp inp-signin px-corner" placeholder="Senha:">
@@ -45,7 +46,10 @@
         var senha = input_senha.value;
 
         if (email == "" || senha == "") {
-            console.log('Entrada inválida')
+            cardErro.style.display = 'flex';
+                cardErro.innerHTML =
+                    `<img class="down-arrow" src='assets/img/icon/down-arrow.png'>
+                        <span id="mensagem_erro">Preencha o email e a senha!</span>`;
             return false;
         }
 
@@ -94,6 +98,11 @@
             } else {
 
                 console.log("Houve um erro ao tentar realizar o login!");
+
+                cardErro.style.display = 'flex';
+                cardErro.innerHTML =
+                    `<img class="down-arrow" src='assets/img/icon/down-arrow.png'>
+                        <span id="mensagem_erro">Email ou senha incorretos!</span>`;
 
                 resposta.text().then(texto => {
                     console.error(texto);
@@ -172,7 +181,7 @@
         var diasConsecutivos = Number(sessionStorage.DIAS_CONSECUTIVOS);
 
         if (diferencaUltimoDiaLog == 1) {
-            diasConsecutivos += 1;
+            diasConsecutivos  += 1;
         } else if (diferencaUltimoDiaLog > 1) {
             diasConsecutivos = 0;
         }

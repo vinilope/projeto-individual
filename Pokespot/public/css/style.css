@@ -413,11 +413,12 @@ main .introducao {
 /* FOOTER */
 
 .following-pkmn {
-    margin-top: -5px;
+    position: relative;
     image-rendering: pixelated;
     width: 100px;
     height: 75px;
     transform: scale(1, -1);
+    bottom: 55px;
 }
 
 #container_pkmn {

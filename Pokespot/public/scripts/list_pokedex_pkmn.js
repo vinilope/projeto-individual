@@ -1,6 +1,8 @@
 var url = 'https://img.pokemondb.net/sprites/';
 buscarDadosPokemon('');
 
+var todosPokemon = [];
+
 function buscarDadosPokemon(pkmnPesquisado) {
     fetch("/pokemon/buscarDadosPokemon", {
         method: "POST",
@@ -17,7 +19,8 @@ function buscarDadosPokemon(pkmnPesquisado) {
 
                 resposta.json().then(json => {
                     if (json.tamanho > 0) {
-                        drawPokemon(json.pokemon)
+                        todosPokemon = json.pokemon
+                        drawPokemon(todosPokemon)
                     } else {
                         console.log(json.tamanho)
                         notFound();
@@ -36,11 +39,11 @@ function drawPokemon(pokemon) {
     var pkmnHTMLmsg = '';
     var id;
 
-    for (let pkmnAtual = 0; pkmnAtual < pokemon.length; pkmnAtual++) {
+    for (var pkmnAtual = 0; pkmnAtual < pokemon.length; pkmnAtual += 1) {
         id = pkmnAtual + 1;
 
         pkmnHTMLmsg += `
-        <div class="pokemon-card">
+        <div onclick="mostrarInfoPokedex(${id})" class="pokemon-card">
             <span class="titulo-id">${pokemon[pkmnAtual].idPokemon}</span>
             <span class="titulo-nome">${capitalizeFirstLetter(pokemon[pkmnAtual].especie)}</span>
             <img src="${url + pokemon[pkmnAtual].normal}" alt="">
@@ -48,6 +51,57 @@ function drawPokemon(pokemon) {
             </div>`;
     }
     pokemon_wrap.innerHTML = pkmnHTMLmsg;
+}
+
+function mostrarInfoPokedex(id) {
+    pokemon_info.style.display = 'flex';
+    id -= 1;
+    var especie = capitalizeFirstLetter(todosPokemon[id].especie);
+    var descricao = todosPokemon[id].descricao;
+    var tipos = buscarTipoPokemon(todosPokemon[id]);
+    var peso = todosPokemon[id].peso/10+' kg';
+    var altura = todosPokemon[id].altura/10+' m';
+    var normal = todosPokemon[id].normal;
+    var animNormal = todosPokemon[id].animNormal;
+    var shiny = todosPokemon[id].shiny;
+    var animShiny = todosPokemon[id].animShiny;
+
+    pokemon_wrap.style.display = 'none';
+
+    pokemon_info.innerHTML = `
+            <div class="info-card px-border pkdx-card">
+                <div class="info-close-wrap">
+                    <img onclick="closeInfo()" class="info-item close" src="assets/img/icon/down-arrow.png" alt="">
+                </div>
+
+                <h5>${id}</h5>
+                <h2>${especie}</h2>
+                <div class="img-wrap pkdx-img">
+                    <img src="https://img.pokemondb.net/sprites/${normal}" class="card-info-img">
+                    <img src="https://img.pokemondb.net/sprites/${shiny}" class="card-info-img">
+                </div>
+
+                <div class="type-wrap">
+                    <span class="tipo-pokemon">${tipos}</span>
+                </div>
+
+                <div class="descricao-wrap">
+                ${descricao}
+                </div>
+
+                <div class="info-wrap">
+                    <ul>
+                        <li><span>Altura: ${altura}</span></li>
+                        <li><span>Peso: ${peso}</span></li>
+                    </ul>
+                </div>
+            </div>
+        `;
+}
+
+function closeInfo() {
+    pokemon_info.style.display = 'none';
+    pokemon_wrap.style.display = 'flex';
 }
 
 function buscarTipoPokemon(pokemon) {
@@ -75,62 +129,39 @@ function buscarCorTipo(type) {
     switch (type) {
         case 'normal':
             return '#aaaa99'
-            break;
         case 'fogo':
             return '#ff4422'
-            break;
         case 'água':
             return '#3399ff'
-            break;
         case 'elétrico':
             return '#ffcc33'
-            break;
         case 'planta':
             return '#77cc55'
-            break;
         case 'gelo':
             return '#66ccff'
-            break;
         case 'lutador':
             return '#66ccff'
-            break;
         case 'venenoso':
             return '#aa5599'
-            break;
         case 'terra':
             return '#ddbb55'
-            break;
         case 'voador':
             return '#ddbb55'
-            break;
         case 'psíquico':
             return '#ff5599'
-            break;
         case 'inseto':
             return '#aabb22'
-            break;
         case 'pedra':
             return '#bbaa66'
-            break;
         case 'fantasma':
             return '#6666bb'
-            break;
         case 'dragão':
             return '#7766ee'
-            break;
         case 'sombrio':
             return '#775544'
-            break;
         case 'metálico':
             return '#aaaabb'
-            break;
         case 'fada':
             return '#ee99ee'
-            break;
-
-
-        default:
-            return 'red'
-            break;
     }
 }

@@ -24,12 +24,39 @@
 
     <main>
         <div id="signin_card" class="card signin-card">
+            <span class="img-bg signin-bg"></span>
             <h1>Cadastre-se!</h1>
-            <input id="input_apelido" class="inp inp-signin px-corner" placeholder="Apelido:">
-            <input id="input_email" class="inp inp-signin px-corner" placeholder="E-mail:">
-            <input id="input_senha" class="inp inp-signin px-corner" placeholder="Senha:">
-            <input id="input_conf_senha" class="inp inp-signin px-corner" placeholder="Confirmar Senha:">
-            <input id="input_dt" class="inp inp-date px-corner" type="date"><br>
+            <input id="input_apelido" onkeyup="validar()" class="inp inp-signin px-corner" placeholder="Apelido:">
+            <input id="input_email" onkeyup="validar()" class="inp inp-signin px-corner" placeholder="E-mail:">
+            <input id="input_senha" onkeyup="validar()" class="inp inp-signin px-corner" placeholder="Senha:">
+            <input id="input_conf_senha" onkeyup="validar()" class="inp inp-signin px-corner" placeholder="Confirmar Senha:">
+            <div class="dt-wrap">
+                <select onchange="validar()" class="px-corner" name="" id="dt_mes">
+                    <option value="">Mês que nasceu</option>
+                </select>
+                <select onchange="validar()" class="px-corner" name="" id="dt_ano">
+                    <option value="">Ano</option>
+                </select>
+            </div><br>
+            <!-- <input id="input_dt" class="inp inp-date px-corner" type="date"><br> -->
+            <ul class="validacao-ul px-corner">
+                <li id="validacao_apelido" class="item-validacao">
+                    <img src="assets/img/icon/dot.png">
+                    <span class="span-validacao">Apelido deve ter entre 3 e 30 caracteres.</span>
+                </li>
+                <li id="validacao_email" class="item-validacao">
+                    <img src="assets/img/icon/dot.png"><span class="span-validacao">Email deve ser válido.</span>
+                </li>
+                <li id="validacao_senha" class="item-validacao">
+                    <img src="assets/img/icon/dot.png"><span class="span-validacao">Senha deve ter no minimo 8 caracteres.</span>
+                </li>
+                <li id="validacao_confirmar" class="item-validacao">
+                    <img src="assets/img/icon/dot.png"><span class="span-validacao">Senhas devem ser iguais.</span>
+                </li>
+                <li id="validacao_dt" class="item-validacao">
+                    <img src="assets/img/icon/dot.png"><span class="span-validacao">Data deve estar preenchida.</span>
+                </li>
+            </ul>
             <button class="btn px-corner" onclick="seguinte()">Criar Conta</button>
         </div>
         <div style="display: none;" id="choose_pokemon" class="card choose-pokemon px-border">
@@ -75,8 +102,94 @@
 </html>
 <script src="scripts/obter_pokemon.js"></script>
 <script>
-    var apelido, email, senha, confSenha, dtNasc = '';
-    moverSeta()
+    var apelido, email, senha, confSenha, dtMes, dtAno;
+    var apValidado, emailValidado, senhaValidada, senhaConfirmada, dtNascValidada;
+
+    popularData();
+    moverSeta();
+
+    function validar() {
+        apelido = input_apelido.value;
+        email = input_email.value;
+        senha = input_senha.value;
+        confSenha = input_conf_senha.value;
+        dtMes = dt_mes.value;
+        dtAno = dt_ano.value;
+
+        apValidado = apelido.length >= 3 && apelido.length <= 30;
+
+        emailValidado = (
+            email.indexOf('@') > -1 && // Possui @
+            email.indexOf('.') > -1 && // Possui .
+            email[email.length - 1] != '.' && // Não termina com .
+            email[email.length - 1] != '@' && // Não termina com @
+            email[0] != '@' && // Não começa com @
+            email[0] != '.' && // Não começa com .
+            email.indexOf(' ') == -1 && // Não possui espaços
+            email.indexOf('..') == -1 && // Não possui pontos consecutivos
+            email[email.indexOf('@') + 1] != '.' // Não possui @ seguido de .
+        );
+
+        senhaValidada = senha.length >= 8
+
+        senhaConfirmada = (senha == confSenha && senha != '');
+
+        dtNascValidada = dtMes != '' && dtAno != ''
+
+        if (apValidado) {
+            validacao_apelido.classList.add('validacao-cumprida');
+        } else {
+            validacao_apelido.classList.remove('validacao-cumprida');
+        }
+
+        if (emailValidado) {
+            validacao_email.classList.add('validacao-cumprida');
+        } else {
+            validacao_email.classList.remove('validacao-cumprida');
+        }
+
+        if (senhaValidada) {
+            validacao_senha.classList.add('validacao-cumprida');
+        } else {
+            validacao_senha.classList.remove('validacao-cumprida');
+        }
+
+        if (senhaConfirmada) {
+            validacao_confirmar.classList.add('validacao-cumprida');
+        } else {
+            validacao_confirmar.classList.remove('validacao-cumprida');
+        }
+
+        if (dtNascValidada) {
+            validacao_dt.classList.add('validacao-cumprida');
+        } else {
+            validacao_dt.classList.remove('validacao-cumprida');
+        }
+    }
+
+    function popularData() {
+        dt_mes.innerHTML += `
+            <option value="1">Janeiro</option>
+            <option value="2">Fevereiro</option>
+            <option value="3">Março</option>
+            <option value="4">Abril</option>
+            <option value="5">Maio</option>
+            <option value="6">Junho</option>
+            <option value="7">Julho</option>
+            <option value="8">Agosto</option>
+            <option value="9">Setembro</option>
+            <option value="10">Outubro</option>
+            <option value="11">Novembro</option>
+            <option value="12">Dezembro</option>
+        `;
+
+        var dataHoje = new Date();
+        var anoAtual = dataHoje.getFullYear();
+        
+        for (var ano = anoAtual; ano > 1900; ano -= 1) {
+            dt_ano.innerHTML += `<option value="${ano}">${ano}</option>`;
+        }
+    }
 
     function moverSeta() {
         switch (document.querySelector('input[name="pokemonInicial"]:checked').value) {
@@ -104,13 +217,8 @@
     }
 
     function seguinte() {
-        apelido = input_apelido.value;
-        email = input_email.value;
-        senha = input_senha.value;
-        confSenha = input_conf_senha.value;
-        dtNasc = input_dt.value;
 
-        if (validarCampos()) {
+        if (!(apValidado && emailValidado && senhaValidada && senhaConfirmada && dtNascValidada)) {
             console.log('Entrada inválida')
             return false;
         }
@@ -131,7 +239,7 @@
                 apelidoServer: apelido,
                 emailServer: email,
                 senhaServer: senha,
-                dtServer: dtNasc
+                dtServer: `${dtAno}-${dtMes}-01`
             }),
         })
             .then(function (resposta) {
@@ -165,8 +273,7 @@
             apelido == "" ||
             email == "" ||
             senha == "" ||
-            confSenha != senha ||
-            dtNasc == ""
+            confSenha != senha
         );
     }
 

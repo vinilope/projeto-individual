@@ -43,7 +43,7 @@ function drawPokemon(pokemon) {
     var pkmnHTMLmsg = '';
     // var id;
 
-    for (let pkmnAtual = 0; pkmnAtual < pokemon.length; pkmnAtual++) {
+    for (var pkmnAtual = 0; pkmnAtual < pokemon.length; pkmnAtual += 1) {
         // id = pkmnAtual + 1;
         pkmn = pokemon[pkmnAtual]
         var shinyImg = ''
