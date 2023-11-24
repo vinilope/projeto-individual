@@ -4,10 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokédex</title>
+    <script src="scripts/check_logado.js"></script>
+    <title>Página Inicial</title>
+    <link rel="icon" href="assets/img/icon/tab-icon-pkb.gif">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/pokedex.css">
-    <link rel="stylesheet" href="css/pesquisa.css">
+    <link rel="stylesheet" href="css/dashboard.css">
 </head>
 
 <body>
@@ -16,9 +17,7 @@
             <div class="logo">
                 <a href="index.html"><img src="assets/img/icon/logo_pkspt.png" alt=""></a>
             </div>
-            <div class="container-search">
-                <input class="px-border" onkeyup="buscarDadosPokemon(pkmn_pesquisado.value)" id="pkmn_pesquisado" placeholder="Pesquisar..." type="text">
-                <img src="assets/img/icon/lupa.png" alt="" class="lupa">
+            <div id="container_cadastro" class="container-cadastro-btn">
             </div>
         </div>
     </header>
@@ -43,9 +42,8 @@
     </div>
 
     <main id="main_container">
-        <div id="pokemon_wrap"></div>
-        <div id="pokemon_info">
-            
+        <div class="dash-container px-border">
+a
         </div>
     </main>
 </body>
@@ -53,4 +51,3 @@
 </html>
 <script src="scripts/navegacao_geral.js"></script>
 <script src="scripts/navbar_login.js"></script>
-<script src="scripts/list_pokedex_pkmn.js"></script>

@@ -277,6 +277,35 @@
         );
     }
 
+    function verificarEmailExiste(email) {
+        fetch("/usuarios/verificarEmailExiste", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                email: email
+            }),
+        })
+            .then(function (resposta) {
+                console.log(email)
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    console.log('Ok')
+
+                    resposta.json().then((json) => {
+                        console.log(json)
+                    })
+                } else {
+                    throw "Houve um erro ao tentar cadastrar Pokémon!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+    }
+
     function inserirPokemon(idTre, idPoke) {
 
         fetch("/pokemon/inserirPokemon", {

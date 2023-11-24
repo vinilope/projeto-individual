@@ -11,6 +11,10 @@ router.post("/buscarPokemonTreinador", function (req, res) {
   pokemonController.buscarPokemonTreinador(req, res);
 })
 
+router.post("/diferencaDiasUltimoPokemon", function (req, res) {
+  pokemonController.diferencaDiasUltimoPokemon(req, res);
+})
+
 router.post("/renomear", function (req, res) {
   pokemonController.renomear(req, res);
 })

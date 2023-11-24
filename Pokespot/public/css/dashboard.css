@@ -1,0 +1,11 @@
+#main_container {
+    height: 100vh;
+    width: 100%;
+}
+
+.dash-container {
+    margin-top: 130px;
+    background-color: white;
+    width: 80%;
+    height: 80%;
+}

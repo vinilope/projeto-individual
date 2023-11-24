@@ -5,12 +5,12 @@ create table usuario (
 	idUsuario int primary key auto_increment,
 	nome varchar(60) not null,
 	constraint chkNomeUsuario check (length(nome) >= 3),
-	email varchar(80) not null,
+	email varchar(80) not null unique,
 	senha varchar(60) not null,
 	dtNasc date not null,
 	fotoPerfil varchar(255) default 'assets/img/user/default.png',
     diasConsecutivos int default 0
-);
+);	
 
 create table historico_log (
 	idLog int primary key auto_increment,

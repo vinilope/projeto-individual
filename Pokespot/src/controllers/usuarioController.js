@@ -110,6 +110,29 @@ function verificarUltimoLog(req, res) {
         );
 }
 
+function verificarEmailExiste(req, res) {
+    var email = req.body.email;
+    console.log('email', email)
+
+    usuarioModel.verificarEmailExiste(email)
+        .then(
+            function (resultadoEmail) {
+                res.json({
+                    qtdEmail: resultadoEmail.length
+                });
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao realizar o cadastro! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
 function registrarDiasConsecutivos(req, res) {
     id = req.body.id;
     diasConsecutivos = req.body.dias;
@@ -143,6 +166,7 @@ function buscarID(req, res) {
 module.exports = {
     cadastrar,
     autenticar,
+    verificarEmailExiste,
     registrarLog,
     verificarUltimoLog,
     registrarDiasConsecutivos,

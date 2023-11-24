@@ -31,11 +31,15 @@
             <li><a href="index.html">
                     <img src="assets/img/icon/down-arrow-gray.png" class="down-arrow">
                     <span>Início</span>
-                </a></li>
+            </a></li>
             <li><a href="pokedex.html">
                     <img src="assets/img/icon/down-arrow-gray.png" class="down-arrow">
                     <span>Pokedéx</span>
-                </a></li>
+            </a></li>
+            <li><a href="ajuda.html">
+                    <img src="assets/img/icon/down-arrow-gray.png" class="down-arrow">
+                    <span>Ajuda</span>
+            </a></li>
         </ul>
         <ul id="account_ul" class="account-ul">
         </ul>
@@ -60,11 +64,8 @@
             </div>
         </div>
 
-        <div class="obter-poke-wrap">
-            <button class="btn-obter-poke px-border" onclick="buscarPokemon()">
-                <img src="assets/img/icon/pkb-icon.png" alt="">
-                <span>Obtenha um pokémon!</span>
-            </button>
+        <div id="obter_poke_wrap" class="obter-poke-wrap">
+            
         </div>
 
         <h1 id="seus_pokemons">Seus Pokémons</h1>
@@ -82,6 +83,7 @@
 <script>
     h1_nome.innerHTML = `Olá, <span>${sessionStorage.NOME_USUARIO}</span>`;
     span_dias.innerHTML = sessionStorage.DIAS_CONSECUTIVOS;
+    diferencaDiasUltimoPokemon();
 
     function closeInfo() {
         pokemon_info.style.display = 'none';
@@ -117,7 +119,7 @@
         pokemon_info.style.display = 'flex';
 
         pokemon_info.innerHTML = `
-            <div class="info-card px-border">
+            <div class="info-card px-border user-card">
                 <div class="info-close-wrap">
                     <img onclick="closeInfo()" class="info-item qt-mark" src="assets/img/icon/question-mark.png" alt="">
                     <img onclick="closeInfo()" class="info-item close" src="assets/img/icon/down-arrow.png" alt="">
@@ -163,5 +165,4 @@
 
         return (`${dia}/${mes}/${ano}`)
     }
-
 </script>

@@ -47,9 +47,17 @@ function registrarDiasConsecutivos(id, diasConsecutivos) {
     return database.executar(instrucao);
 }
 
+function verificarEmailExiste(email) {
+    var instrucao = `select idUsuario from usuario where email = '${email}'`
+    
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 module.exports = {
     cadastrar,
     autenticar,
+    verificarEmailExiste,
     registrarLog,
     verificarUltimoLog,
     registrarDiasConsecutivos,

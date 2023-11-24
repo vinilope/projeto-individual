@@ -12,6 +12,11 @@ router.post("/autenticar", function (req, res) {
     usuarioController.autenticar(req, res);
 });
 
+router.post("/verificarEmailExiste", function (req, res) {
+    console.log('passei pela rota')
+    usuarioController.verificarEmailExiste(req, res);
+});
+
 router.post("/registrarLog", function (req, res) {
     usuarioController.registrarLog(req, res);
 });

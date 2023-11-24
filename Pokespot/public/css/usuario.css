@@ -125,3 +125,26 @@
   top: 5px;
   font-size: 20px;
 }
+
+.volte-amanha {
+  background-color: rgb(182, 182, 182);
+  color: white;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  gap: 20px;
+  cursor: not-allowed;
+}
+
+.volte-amanha span {
+  position: relative;
+  top: 5px;
+  font-size: 20px;
+}
+
+.volte-amanha img {
+  width: 25px;
+  height: 25px;
+}

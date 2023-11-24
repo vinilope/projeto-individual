@@ -2,7 +2,7 @@ var database = require("../database/config")
 
 function buscarDadosPokemon(especie) {
     console.log(especie)
-    var instrucao = `select * from pokemon join sprite on idPokemon = idSprite where especie like "${especie}%"`
+    var instrucao = `select * from pokemon join sprite on idPokemon = idSprite join baseStatus on idPokemon = idBaseStatus where especie like "${especie}%"`
 
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -17,6 +17,13 @@ function buscarPokemonTreinador(id, especie) {
 
 function renomear(id, apelido) {
     var instrucao = `update pokemonTreinador set apelido = '${apelido}' where idPokeTre = ${id};`
+
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+function diferencaDiasUltimoPokemon(id) {
+    var instrucao = `select datediff(now(), dtAdquirido) diff from pokemonTreinador where fkUsuario = ${id} order by dtAdquirido desc limit 1;`
 
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -41,5 +48,6 @@ module.exports = {
     buscarPokemonTreinador,
     renomear,
     inserirPokemon,
+    diferencaDiasUltimoPokemon,
     buscarQtdPokemon
 }

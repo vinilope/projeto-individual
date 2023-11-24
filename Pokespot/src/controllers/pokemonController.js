@@ -23,6 +23,25 @@ function buscarDadosPokemon(req, res) {
         );
 }
 
+function diferencaDiasUltimoPokemon(req, res) {
+    var id = req.body.id;
+
+    pokemonModel.diferencaDiasUltimoPokemon(id)
+        .then(
+            function (resultadoDiferenca) {
+                res.json({
+                    diff: resultadoDiferenca[0].diff
+                });
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
 function buscarPokemonTreinador(req, res) {
     var id = req.body.id;
     var especie = req.body.pkmnEspecie;
@@ -109,5 +128,6 @@ module.exports = {
     buscarPokemonTreinador,
     renomear,
     inserirPokemon,
-    buscarQtdPokemon
+    buscarQtdPokemon,
+    diferencaDiasUltimoPokemon
 }
