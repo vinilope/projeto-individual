@@ -117,6 +117,7 @@ header .container {
     cursor: pointer;
     transition: 100ms;
     padding: 10px 15px;
+    color: white;
 }
 
 .profile-wrap-upbar:hover {
@@ -201,12 +202,24 @@ header .container {
     list-style: none;
 }
 
-.profile-img {
-    width: 50px;
+#account_ul li:last-child img {
+   width: 40px;
 }
 
-.account-item img {
-    width: 40px;
+.foto-wrap {
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.foto-wrap img {
+    position: relative;
+    height: 45px;
 }
 
 .account-item {
@@ -406,6 +419,53 @@ main .introducao {
 .text img {
     width: 200px;
     height: 200px;
+}
+
+.ranking-wrap {
+    background-color: white;
+    width: 400px;
+}
+
+.ranking-wrap .titulo-ranking {
+    background-color: var(--vermelho);
+    padding: 10px;
+    color: white;
+    border-bottom: 4px solid black;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.ranking-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    height: 300px;
+    overflow: scroll;
+}
+
+.ranking-list li {
+    display: flex;
+    gap: 10px;
+    border-bottom: 2px solid rgb(204, 204, 204);
+}
+
+.qtd-poke-ranking {
+    margin-left: auto;
+}
+
+.nome-ranking {
+    width: 60%;
+    overflow: hidden;
+}
+
+.titulo-ranking img {
+    width: 20px;
+}
+
+.hashtag {
+    font-size: 17px;
 }
 
 /* FIM CORPO */

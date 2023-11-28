@@ -148,3 +148,15 @@
   width: 25px;
   height: 25px;
 }
+
+.mudar-foto-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: 60px;
+}
+
+.mudar-foto-wrap img {
+  width: 30px;
+  cursor: pointer;
+}

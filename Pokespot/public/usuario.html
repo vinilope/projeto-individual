@@ -73,7 +73,6 @@
         <div id="pokemon_info"></div>
     </main>
 </body>
-
 </html>
 <script src="scripts/navegacao_geral.js"></script>
 <script src="scripts/navbar_login.js"></script>
@@ -105,11 +104,14 @@
         var tipos = buscarTipoPokemon(allPkmn[id]);
         var sprite = allPkmn[id].normal;
         var shiny = allPkmn[id].isShiny;
+        var miniatura = allPkmn[id].miniatura;
+        var anim = allPkmn[id].animNormal;
 
         var shinyImg = '';
 
         if (shiny) {
             sprite = allPkmn[id].shiny;
+            anim = allPkmn[id].animShiny;
             shinyImg = '<img class="estrela-shiny-info" src="assets/img/icon/shiny.png">'
         }
 
@@ -121,7 +123,7 @@
         pokemon_info.innerHTML = `
             <div class="info-card px-border user-card">
                 <div class="info-close-wrap">
-                    <img onclick="closeInfo()" class="info-item qt-mark" src="assets/img/icon/question-mark.png" alt="">
+                    <img onclick="mostrarPokedex(${pokeID})" class="info-item qt-mark" src="assets/img/icon/question-mark.png" alt="">
                     <img onclick="closeInfo()" class="info-item close" src="assets/img/icon/down-arrow.png" alt="">
                 </div>
 
@@ -149,11 +151,21 @@
                         <li><span>Peso: ${peso}</span></li>
                     </ul>
                 </div>
+                <div class="mudar-foto-wrap">
+                    <img src="assets/img/icon/pkb-icon-btn.png" onclick="alterarFotoPerfil('${url+anim}')" >
+                </div>
                 <span class="info-date">
                     Adquirido em: ${dtAdquirido}
                 </span>
             </div>
         `;
+
+        document.getElementById('apelido_h2').addEventListener("keydown", (event) => {
+            if (event.key == 'Enter'){
+                event.preventDefault();
+                renomear(pokeTreID)
+            }
+        })
     }
 
     function converterData(date) {
@@ -164,5 +176,9 @@
         var ano = data.getFullYear();
 
         return (`${dia}/${mes}/${ano}`)
+    }
+
+    function mostrarPokedex(id) {
+        location.href = 'pokedex.html?id='+id
     }
 </script>

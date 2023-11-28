@@ -25,6 +25,7 @@ function autenticar(req, res) {
                             nome: resultadoAutenticar[0].nome,
                             email: resultadoAutenticar[0].email,
                             senha: resultadoAutenticar[0].senha,
+                            fotoPerfil: resultadoAutenticar[0].fotoPerfil,
                             diasConsecutivos: resultadoAutenticar[0].diasConsecutivos,
                             qtdPkmn: resultadoAutenticar[0].qtdPkmn
                         });
@@ -162,6 +163,33 @@ function buscarID(req, res) {
         );
 }
 
+function mudarFoto(req, res) {
+    var id = req.body.id;
+    var url = req.body.url;
+
+    if (url == undefined) {
+        res.status(400).send("Sua url está undefined!");
+    } else if (id == undefined) {
+        res.status(400).send("Seu id está undefined!");
+    } else {
+        usuarioModel.mudarFoto(id, url)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao mudar a foto de perfil! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
 
 module.exports = {
     cadastrar,
@@ -170,5 +198,6 @@ module.exports = {
     registrarLog,
     verificarUltimoLog,
     registrarDiasConsecutivos,
-    buscarID
+    buscarID,
+    mudarFoto
 }

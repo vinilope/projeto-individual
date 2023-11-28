@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="scripts/check_logado.js"></script>
+    <!-- <script src="scripts/check_logado.js"></script> -->
     <title>Página Inicial</title>
     <link rel="icon" href="assets/img/icon/tab-icon-pkb.gif">
     <link rel="stylesheet" href="css/style.css">
@@ -43,7 +43,26 @@
 
     <main id="main_container">
         <div class="dash-container px-border">
-a
+            <div class="kpi-wrap">
+                <div class="kpi kpi1 px-border">
+                    <p>existem</p>
+                    <span class="valor-kpi" id="qtd_usuario"></span>
+                    <p>usuários registrados</p>
+                </div>
+                <div class="kpi kpi2 px-border">
+                    <span>Usuário #1:</span>
+                    <span class="valor-kpi" id="nome_usuario"></span>
+                    <span class="valor-kpi" id="qtd_dias_usuario"></span>
+                </div>
+            </div>
+            <div class="chart-wrap">
+                <div class="container-chart">
+                    <canvas id="chart_trafego"></canvas>
+                </div>
+                <div class="container-chart">
+                    <canvas id="chart_iniciais"></canvas>
+                </div>
+            </div>
         </div>
     </main>
 </body>
@@ -51,3 +70,149 @@ a
 </html>
 <script src="scripts/navegacao_geral.js"></script>
 <script src="scripts/navbar_login.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="scripts/charts_dash.js"></script>
+
+<script>
+    var atualizarGrafico = setInterval(() => {
+        // buscarQtdUsuarios()
+        // buscarRankingUsuario()
+    }, 2000);
+    
+    buscarQtdUsuarios()
+    buscarRankingUsuario()
+    pokeInicial()
+    buscarTrafego()
+
+    function buscarQtdUsuarios() {
+        fetch("/analytics/buscarQtdUsuarios", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    qtd = json.qtde;
+                    qtd_usuario.innerHTML = qtd;
+                });
+
+            } else {
+                console.log("Houve um erro ao tentar realizar o login!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+    }
+
+    function buscarRankingUsuario() {
+        fetch("/analytics/buscarRankingUsuario", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    var user = json.user[0];
+                    console.log(user)
+                    nome_usuario.innerHTML = user.nome + '<small> possui</small>'
+                    qtd_dias_usuario.innerHTML = user.qtd + '<small> pokémon</small>'
+                });
+
+            } else {
+                console.log("Houve um erro ao tentar realizar o login!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+    }
+
+    function pokeInicial() {
+        fetch("/analytics/pokeInicial", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json.pokeIniciais)
+                    qtdBulba = json.pokeIniciais[0].qtde
+                    qtdSquir = json.pokeIniciais[1].qtde
+                    qtdChar = json.pokeIniciais[2].qtde
+
+                    qtdTotal = qtdBulba+qtdSquir+qtdChar
+
+                    qtdBulba =(qtdBulba * 100 / qtdTotal).toFixed(2)
+                    qtdSquir =(qtdSquir * 100 / qtdTotal).toFixed(2)
+                    qtdChar = (qtdChar * 100 / qtdTotal).toFixed(2)
+
+                    desenharGraficoIniciais(qtdBulba, qtdSquir, qtdChar)
+                });
+
+            } else {
+                console.log("Houve um erro ao tentar realizar o login!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+    }
+
+    function buscarTrafego() {
+        fetch("/analytics/buscarTrafego", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    listaqtd = []
+                    listadia = []
+                    var dia = new Date().getDate();
+                    var mes = new Date().getMonth();
+
+                    for (let i = 0; i < json.trafego.length; i++) {
+                        listadia.push(`${dia-i}/${mes}`)
+                        listaqtd.push(json.trafego[i].qtd)
+                    }
+                    desenharGraficoTrafego(listadia.reverse(),listaqtd.reverse())
+                });
+
+            } else {
+                console.log("Houve um erro ao tentar realizar o login!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+    }
+</script>

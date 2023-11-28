@@ -80,6 +80,7 @@
                 resposta.json().then(json => {
                     sessionStorage.NOME_USUARIO = json.nome;
                     sessionStorage.EMAIL_USUARIO = json.email;
+                    sessionStorage.FOTO_USUARIO = json.fotoPerfil;
                     sessionStorage.ID_USUARIO = json.id
                     sessionStorage.DIAS_CONSECUTIVOS = json.diasConsecutivos;
                     sessionStorage.QTD_POKEMON = json.qtdPkmn;

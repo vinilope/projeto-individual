@@ -6,6 +6,58 @@
 .dash-container {
     margin-top: 130px;
     background-color: white;
-    width: 80%;
-    height: 80%;
+    width: calc(80% - 60px);
+    height: calc(80% - 60px);
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.container-chart {
+    width: 600px;
+    height: 400px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.chart-wrap {
+    display: flex;
+    gap: 150px;
+}
+
+.kpi-wrap {
+    display: flex;
+    gap: 50px;
+}
+
+.kpi {
+    width: 160px;
+    height: 160px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.kpi p {
+    font-size: 14px;
+}
+
+.valor-kpi {
+    font-size: 20px;
+}
+
+.kpi1 {
+    background-color: black;
+    color: white;
+}
+
+.kpi2 {
+    background-color: var(--vermelho);
+    color: white;
 }

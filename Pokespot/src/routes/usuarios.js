@@ -33,4 +33,8 @@ router.post("/buscarID", function (req, res) {
     usuarioController.buscarID(req, res);
 });
 
+router.post("/mudarFoto", function (req, res) {
+    usuarioController.mudarFoto(req, res);
+});
+
 module.exports = router;

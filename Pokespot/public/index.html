@@ -54,6 +54,14 @@
     <main class="display-none-on-start" id="main_container">
         <div id="inicio"></div>
         <section>
+            <div class="ranking-wrap px-border">
+                <h3 class="titulo-ranking"><img src="assets/img/icon/down-arrow-white.png" alt="">Top 10 jogadores</h3>
+                <ul id="ranking" class="ranking-list">
+                    
+                </ul>
+            </div>
+        </section>
+        <section>
             <div class="content-wrap px-border">
                 <div class="titulo">
                     <h1>Bem-vindo ao Mundo Pokémon!</h1>
@@ -154,6 +162,7 @@
     if (sessionStorage.ID_USUARIO || sessionStorage.EXIBIR_POKEBOLA) {
         iniciarSemPokebola();
     }
+    buscarRankingUsuario()
 
     function iniciarComPokebola() {
         sessionStorage.EXIBIR_POKEBOLA = true;
@@ -191,6 +200,46 @@
             elementos[i].style.opacity = '1';
         }
         section_pkb.style.display = 'none';
+    }
+
+        
+   function buscarRankingUsuario() {
+        fetch("/analytics/buscarRankingUsuario", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    var users = json.user
+                    popularRanking(users)
+                });
+
+            } else {
+                console.log("Houve um erro ao tentar realizar o login!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+    }
+
+    function popularRanking(users) {
+        for (let i = 0; i < users.length; i++) {
+            ranking.innerHTML += 
+                `<li>
+                    <h3><span class="hashtag">#</span>${i+1}</h3>
+                    <span class="nome-ranking">${users[i].nome}</span>
+                    <span class="qtd-poke-ranking">${users[i].qtd} <small>pokémon</small></span>
+                </li>`;
+        }
     }
 
 </script>

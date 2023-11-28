@@ -20,6 +20,9 @@ function buscarDadosPokemon(pkmnPesquisado) {
         resposta.json().then((json) => {
           if (json.tamanho > 0) {
             todosPokemon = json.pokemon;
+            if (idPokeParams) 
+              mostrarInfoPokedex(idPokeParams)
+            
             drawPokemon(todosPokemon);
           } else {
             console.log(json.tamanho);
@@ -58,6 +61,7 @@ function drawPokemon(pokemon) {
 }
 
 function mostrarInfoPokedex(id) {
+  console.log(todosPokemon)
   pokemon_info.style.display = "flex";
   id -= 1;
 
@@ -162,10 +166,6 @@ function notFound() {
         <div>`;
 }
 
-function tocarAudio(id) {
-  console.log(id);
-}
-
 function buscarCorTipo(type) {
   switch (type) {
     case "normal":
@@ -206,3 +206,7 @@ function buscarCorTipo(type) {
       return "#ee99ee";
   }
 }
+
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+const idPokeParams = urlParams.get('id');
