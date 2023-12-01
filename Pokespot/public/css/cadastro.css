@@ -39,11 +39,30 @@ main {
     background-image: url(../assets/img/border/card-bg-short.png);
 }
 
+#eye {
+    z-index: 10;
+    filter: brightness(0.7);
+    position: absolute;
+    width: 35px;
+    right: 20px;
+    top: 9px;
+    cursor: pointer;
+}
+
+.password-wrap {
+    width: 80%;
+    position: relative;
+}
+
 .signin-card .inp {
     height: 42px;
     text-indent: 10px;
     width: 80%;
     border: none;
+}
+
+.password-wrap .inp {
+    width: 100%;
 }
 
 .signin-card .btn {

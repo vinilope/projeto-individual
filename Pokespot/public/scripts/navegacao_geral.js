@@ -17,6 +17,10 @@ function pagPokedex() {
 function pagInicio() {
     location.href = "index.html"
 }
+ 
+function pagConfiguracao() {
+    location.href = "configuracao.html"
+}
 
 function sair() {
     sessionStorage.clear();

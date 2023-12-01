@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <script src="scripts/check_logado.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pokedex.css">
+    <link rel="stylesheet" href="css/pesquisa.css">
+    <link rel="stylesheet" href="css/config.css">
+    
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html"><img src="assets/img/icon/logo_pkspt.png" alt=""></a>
+            </div>
+            <div class="container-search">
+                <input class="px-border" onkeyup="buscarDadosPokemon(pkmn_pesquisado.value)" id="pkmn_pesquisado"
+                    placeholder="Pesquisar..." type="text">
+                <img src="assets/img/icon/lupa.png" alt="" class="lupa">
+            </div>
+        </div>
+    </header>
+    
+    <div id="side_menu" class="sideMenu">
+        <ul class="menu-item">
+            <li><a href="index.html">
+                    <img src="assets/img/icon/down-arrow-gray.png" class="down-arrow">
+                    <span>Início</span>
+            </a></li>
+            <li><a href="pokedex.html">
+                    <img src="assets/img/icon/down-arrow-gray.png" class="down-arrow">
+                    <span>Pokedéx</span>
+            </a></li>
+            <li><a href="ajuda.html">
+                    <img src="assets/img/icon/down-arrow-gray.png" class="down-arrow">
+                    <span>Ajuda</span>
+            </a></li>
+        </ul>
+        <ul id="account_ul" class="account-ul">
+        </ul>
+    </div>
+
+    <main style="gap: 3rem;" id="main_container">
+        <div class="config-wrap px-border">
+            <h2>Usuário e Email</h2>
+            <span>Usuário:</span>
+            <b style="margin-left: 10px;" id="nome_user"></b><img onclick="exibirDialogo()" class="rename-img" src="assets/img/icon/rename.png" alt=""><br>
+            <span>Email:</span>
+            <b style="margin-left: 10px;" id="email_user"></b><br><br>
+            <h2>Alterar Senha</h2>
+            <span>Senha atual:</span>
+            <input id="senha_atual" type="text"><br>
+            <span>Senha nova:</span>
+            <input id="senha_nova" type="text"><br>
+            <span>Confirmar senha nova:</span>
+            <input id="confirmar_senha" type="text"><br><br>
+            <button onclick="validarCampoSenha()" class="btn px-border">alterar</button>
+        </div>
+    </main>
+    <dialog class="rename-dialog px-corner" id="dialogo_renomear">
+        <div class="dialog-wrap">
+            <h3>Novo usuário:</h3>
+            <input id="novo_nome" class="px-corner" type="text">
+            <button class="btn px-corner" onclick="renomearUsuario()">Alterar</button>
+        </div>
+    </dialog>
+</body>
+</html>
+<script src="scripts/navegacao_geral.js"></script>
+<script src="scripts/navbar_login.js"></script>
+
+<script>
+    nome_user.innerHTML = sessionStorage.NOME_USUARIO;
+    email_user.innerHTML = sessionStorage.EMAIL_USUARIO;
+
+    function exibirDialogo() {
+        dialogo_renomear.showModal()
+    }
+
+    function renomearUsuario() {
+        var nome = novo_nome.value
+        if (nome) {
+            sessionStorage.NOME_USUARIO = nome
+            renomear(nome, sessionStorage.ID_USUARIO)
+        }
+        dialogo_renomear.close()
+    }
+
+    function renomear(nome, id) {
+
+        fetch("/usuarios/renomear", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                id: id,
+                nome: nome
+            })
+        })
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    console.log(resposta)
+                    location.reload()
+                } else {
+                    throw "Houve um erro ao alterar o nome!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+    }
+
+    function alterarSenha(senha, id) {
+
+        fetch("/usuarios/alterarSenha", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                id: id,
+                senha: senha
+            })
+        })
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    console.log(resposta)
+                    sessionStorage.SENHA_USUARIO = senha
+                    location.reload()
+                } else {
+                    throw "Houve um erro ao alterar a senha!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+    }
+
+    function validarCampoSenha() {
+        console.log(senha_atual.value != sessionStorage.SENHA_USUARIO, senha_atual.value, sessionStorage.SENHA_USUARIO)
+        if (senha_atual.value != sessionStorage.SENHA_USUARIO) {
+            alert('Senha atual não confere')
+        } else if (senha_nova.value != confirmar_senha.value) {
+            alert('A senha deve ser igual')
+        } else if (senha_nova.value.length < 8) {
+            alert('A senha deve ter mais de 8 dígitos')
+        } else {
+            alterarSenha(senha_nova.value, sessionStorage.ID_USUARIO);
+        }
+    }
+    
+</script>

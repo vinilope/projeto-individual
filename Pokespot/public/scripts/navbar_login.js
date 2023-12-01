@@ -30,7 +30,10 @@ if (!sessionStorage.ID_USUARIO) {
         <div class="foto-wrap"><img id="foto_perfil" class="profile-img" src="${sessionStorage.FOTO_USUARIO}" alt=""></div
         <span class="user-name">${sessionStorage.NOME_USUARIO}</span>
         </li>
-    <li onclick="sair()" class="account-item account-item-logged"><img src="assets/img/icon/logout.png" alt="">Sair</li>
+    <li>
+        <img onclick="sair()" src="assets/img/icon/logout.png" alt="">
+        <img onclick="pagConfiguracao()" id="settings" class="settings-img" src="assets/img/icon/settings.png" alt="">
+    </li>
     `;
 }
 

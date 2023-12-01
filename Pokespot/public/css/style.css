@@ -200,10 +200,23 @@ header .container {
     flex-direction: column;
     color: white;
     list-style: none;
+    gap: 16px;
 }
 
 #account_ul li:last-child img {
-   width: 40px;
+   width: 30px;
+   cursor: pointer;
+   transition: 200ms;
+}
+
+#account_ul li:last-child img:hover {
+    filter: brightness(0.7);
+}
+
+#account_ul li:last-child {
+   margin: auto;
+   display: flex;
+   gap: 20px;
 }
 
 .foto-wrap {
@@ -253,6 +266,10 @@ header .container {
     word-spacing: 2px;
     position: relative;
     top: 15px;
+}
+
+.settings-img {
+    cursor: pointer;
 }
 
 /* FIM BARRA LATERAL */

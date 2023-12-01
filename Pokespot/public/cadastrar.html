@@ -28,8 +28,8 @@
             <h1>Cadastre-se!</h1>
             <input id="input_apelido" onkeyup="validar()" class="inp inp-signin px-corner" placeholder="Apelido:">
             <input id="input_email" onkeyup="validar()" class="inp inp-signin px-corner" placeholder="E-mail:">
-            <input id="input_senha" onkeyup="validar()" class="inp inp-signin px-corner" placeholder="Senha:">
-            <input id="input_conf_senha" onkeyup="validar()" class="inp inp-signin px-corner" placeholder="Confirmar Senha:">
+            <input id="input_senha" type="password" onkeyup="validar()" class="inp inp-signin px-corner" placeholder="Senha:">
+            <input id="input_conf_senha" type="password" onkeyup="validar()" class="inp inp-signin px-corner" placeholder="Confirmar Senha:">
             <div class="dt-wrap">
                 <select onchange="validar()" class="px-corner" name="" id="dt_mes">
                     <option value="">Mês que nasceu</option>
@@ -57,7 +57,7 @@
                     <img src="assets/img/icon/dot.png"><span class="span-validacao">Data deve estar preenchida.</span>
                 </li>
             </ul>
-            <button class="btn px-corner" onclick="seguinte()">Criar Conta</button>
+            <button class="btn px-corner" onclick="seguinte()">Seguinte</button>
         </div>
         <div style="display: none;" id="choose_pokemon" class="card choose-pokemon px-border">
             <span class="px-border titulo"><span>Escolha seu pokémon inicial</span></span>
@@ -192,27 +192,29 @@
     }
 
     function moverSeta() {
-        switch (document.querySelector('input[name="pokemonInicial"]:checked').value) {
-            case "1":
-                img1.innerHTML = `<img class='down-arrow' src='assets/img/icon/down-arrow-white.png'>`
-                img4.innerHTML = ``
-                img7.innerHTML = ``
-                break;
-
-            case "4":
-                img1.innerHTML = ``
-                img4.innerHTML = ``
-                img7.innerHTML = `<img class='down-arrow' src='assets/img/icon/down-arrow-white.png'>`
-                break;
-
-            case "7":
-                img1.innerHTML = ``
-                img4.innerHTML = `<img class='down-arrow' src='assets/img/icon/down-arrow-white.png'>`
-                img7.innerHTML = ``
-                break;
-
-            default:
-                break;
+        if (document.querySelector('input[name="pokemonInicial"]:checked')) {
+            switch (document.querySelector('input[name="pokemonInicial"]:checked').value) {
+                case "1":
+                    img1.innerHTML = `<img class='down-arrow' src='assets/img/icon/down-arrow-white.png'>`
+                    img4.innerHTML = ``
+                    img7.innerHTML = ``
+                    break;
+    
+                case "4":
+                    img1.innerHTML = ``
+                    img4.innerHTML = ``
+                    img7.innerHTML = `<img class='down-arrow' src='assets/img/icon/down-arrow-white.png'>`
+                    break;
+    
+                case "7":
+                    img1.innerHTML = ``
+                    img4.innerHTML = `<img class='down-arrow' src='assets/img/icon/down-arrow-white.png'>`
+                    img7.innerHTML = ``
+                    break;
+    
+                default:
+                    break;
+            }
         }
     }
 

@@ -20,7 +20,7 @@ function buscarID(email, senha) {
 function autenticar(email, senha) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", email, senha)
     var instrucao = `
-        SELECT idUsuario, nome, email, fotoPerfil, diasConsecutivos FROM usuario WHERE email = '${email}' AND senha = '${senha}';
+        SELECT * FROM usuario WHERE email = '${email}' AND senha = '${senha}';
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -61,6 +61,20 @@ function mudarFoto(id, url) {
     return database.executar(instrucao);
 }
 
+function renomear(id, nome) {
+    var instrucao = `update usuario set nome = '${nome}' where idUsuario = ${id};`
+
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+function alterarSenha(id, senha) {
+    var instrucao = `update usuario set senha = '${senha}' where idUsuario = ${id};`
+
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 module.exports = {
     cadastrar,
     autenticar,
@@ -69,5 +83,7 @@ module.exports = {
     verificarUltimoLog,
     registrarDiasConsecutivos,
     buscarID,
-    mudarFoto
+    mudarFoto,
+    renomear,
+    alterarSenha
 };

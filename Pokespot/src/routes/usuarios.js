@@ -37,4 +37,13 @@ router.post("/mudarFoto", function (req, res) {
     usuarioController.mudarFoto(req, res);
 });
 
+
+router.post("/renomear", function (req, res) {
+    usuarioController.renomear(req, res);
+})
+
+router.post("/alterarSenha", function (req, res) {
+    usuarioController.alterarSenha(req, res);
+})
+
 module.exports = router;
