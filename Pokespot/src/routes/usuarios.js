@@ -46,4 +46,8 @@ router.post("/alterarSenha", function (req, res) {
     usuarioController.alterarSenha(req, res);
 })
 
+router.delete("/deletarConta", function (req, res) {
+    usuarioController.deletarConta(req, res);
+})
+
 module.exports = router;

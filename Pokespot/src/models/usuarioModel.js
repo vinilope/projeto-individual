@@ -75,6 +75,22 @@ function alterarSenha(id, senha) {
     return database.executar(instrucao);
 }
 
+function deletarConta(id) {
+    var instrucoes = [
+    `delete from historico_log where fkUsuario = ${id};`,
+    `delete from pokemonTreinador where fkUsuario = ${id};`,
+    ]
+
+    instrucoes.forEach(instrucao => {
+        database.executar(instrucao)
+    });
+
+    console.log("Executando a instrução SQL: \n" + `delete from usuario where idUsuario = ${id};`);
+    setTimeout(() => {
+        return database.executar(`delete from usuario where idUsuario = ${id};`);
+    }, 200);
+}
+
 module.exports = {
     cadastrar,
     autenticar,
@@ -85,5 +101,6 @@ module.exports = {
     buscarID,
     mudarFoto,
     renomear,
-    alterarSenha
+    alterarSenha,
+    deletarConta
 };

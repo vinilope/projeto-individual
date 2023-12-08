@@ -38,6 +38,11 @@ body {
     image-rendering: pixelated;
 }
 
+#leaders_lista {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
 .container-progresso {
     height: 30px;
     width: 300px;

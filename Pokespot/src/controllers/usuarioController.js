@@ -188,6 +188,29 @@ function mudarFoto(req, res) {
             );
     }
 }
+function deletarConta(req, res) {
+    var id = req.body.id;
+
+    if (id == undefined) {
+        res.status(400).send("Seu id está undefined!");
+    } else {
+        usuarioModel.deletarConta(id)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao deletar a conta! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
 
 function renomear(req, res) {
     var id = req.body.id;
@@ -253,5 +276,6 @@ module.exports = {
     buscarID,
     mudarFoto,
     renomear,
-    alterarSenha
+    alterarSenha,
+    deletarConta
 }

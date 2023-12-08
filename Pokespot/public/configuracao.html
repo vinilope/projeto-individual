@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>Configuração - Pokéspot</title>
+    <link rel="icon" href="assets/img/icon/tab-icon-pkb.gif">
     <script src="scripts/check_logado.js"></script>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/pokedex.css">
@@ -60,8 +61,9 @@
             <input id="senha_nova" type="text"><br>
             <span>Confirmar senha nova:</span>
             <input id="confirmar_senha" type="text"><br><br>
-            <button onclick="validarCampoSenha()" class="btn px-border">alterar</button>
+            <button onclick="validarCampoSenha()" class="btn px-border">Alterar</button>
         </div>
+        <button onclick="dialogo_deletar.showModal()" class="btn-delete px-corner">Deletar Conta</button>
     </main>
     <dialog class="rename-dialog px-corner" id="dialogo_renomear">
         <div class="dialog-wrap">
@@ -69,6 +71,13 @@
             <input id="novo_nome" class="px-corner" type="text">
             <button class="btn px-corner" onclick="renomearUsuario()">Alterar</button>
         </div>
+    </dialog>
+
+    <dialog class="rename-dialog px-corner" id="dialogo_deletar">
+        <div class="dialog-wrap">
+            <h3>Tem certeza?</h3>
+            <button onclick="deletarConta()" class="btn px-corner">Deletar Conta</button>
+    </div>
     </dialog>
 </body>
 </html>
@@ -141,6 +150,23 @@
             .catch(function (resposta) {
                 console.log(`#ERRO: ${resposta}`);
             });
+    }
+
+    function deletarConta() {
+
+        fetch("/usuarios/deletarConta", {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                id: sessionStorage.ID_USUARIO
+            })
+        })
+
+        setTimeout(() => {
+            sair()
+        }, 500);
     }
 
     function validarCampoSenha() {
