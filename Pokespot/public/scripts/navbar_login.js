@@ -37,6 +37,15 @@ if (!sessionStorage.ID_USUARIO) {
     `;
 }
 
+if (sessionStorage.ID_USUARIO == 1) {
+    menu_lista.innerHTML += `
+        <li><a href="dashboard.html">
+                <img src="assets/img/icon/down-arrow-gray.png" class="down-arrow">
+                <span>Dashboard</span>
+        </a></li>
+    `;
+}
+
 function alterarFotoPerfil(url) {
     if (url != sessionStorage.FOTO_USUARIO)
         foto_perfil.src = url
